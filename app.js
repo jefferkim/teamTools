@@ -4,19 +4,22 @@
  */
 
 var express = require('express');
-var mongoose = require("mongoose");
+
 var routes = require('./routes');
-var user = require('./routes/user');
+var project = require('./routes/project');
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
 
 
+var mongoose = require("mongoose");
+mongoose.connect('mongodb://localhost/tools');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
-    // yay!
+   console.log("open...")
 });
+
 
 
 var app = express();
@@ -24,7 +27,6 @@ var app = express();
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-//app.set('view engine', 'jade');
 app.set('view engine','ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -45,7 +47,9 @@ if ('development' == app.get('env')) {
 
 //routes
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/project/add',project.add);
+app.get('/project/list',project.list);
+app.get('/project/edit',project.edit);
 
 
 
