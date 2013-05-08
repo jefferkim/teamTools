@@ -19,7 +19,7 @@ exports.add = function(req, res){
         }
     });*/
 
-    res.render('projectAdd',{title:'添加项目'});
+    res.render('projectAdd',{title:'添加项目',currentProject:'变形金刚'});
 
     $("#J-addProject").on("click",function(e){
         e.preventDefault();
@@ -38,12 +38,9 @@ exports.add = function(req, res){
 };
 
 exports.list = function(req, res){
-
     Project.find(function(err, projects) {
-
            res.render('projectList',{title:'项目列表', projects: projects });
     });
-
 };
 
 exports.edit = function(req, res){

@@ -7,6 +7,8 @@ var express = require('express');
 
 var routes = require('./routes');
 var project = require('./routes/project');
+var upload = require('./routes/upload');
+var version = require('./routes/version');
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
@@ -47,9 +49,15 @@ if ('development' == app.get('env')) {
 
 //routes
 app.get('/', routes.index);
+
 app.get('/project/add',project.add);
 app.get('/project/list',project.list);
 app.get('/project/edit',project.edit);
+app.get('/upload',upload.uploadFile);
+
+app.get('/version/add/:pid',version.add);
+
+
 
 
 

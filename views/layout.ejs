@@ -5,6 +5,33 @@
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-<%- body%>
+<div class="header-bar">
+    <h1>秘密的项目</h1>
+</div>
+
+
+
+<div class="main clearfix">
+    <div class="sidebar">
+        <h3>您的项目</h3>
+        <ul>
+
+
+        </ul>
+    </div>
+    <div class="content">
+        <div class="c">
+            <div class="breadcrumb">
+                <a href="#">您的项目</a><span>><%= currentProject%></span>
+            </div>
+
+            <%- body%>
+        </div>
+    </div>
+
+</div>
+
+
+
 </body>
 </html>
