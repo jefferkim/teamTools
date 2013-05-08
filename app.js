@@ -4,7 +4,6 @@
  */
 
 var express = require('express');
-
 var routes = require('./routes');
 var project = require('./routes/project');
 var upload = require('./routes/upload');
@@ -14,6 +13,9 @@ var path = require('path');
 var partials = require('express-partials');
 
 
+/**
+ * mongoDB connection
+ */
 var mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost/tools');
 var db = mongoose.connection;
@@ -38,6 +40,8 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 app.set('env', 'production');//set production env
 
 
@@ -47,14 +51,24 @@ if ('development' == app.get('env')) {
 }
 
 
+/*
+* Auth 认证，
+* 先暂时用硬编码
+* */
+var user             = 'jinjianfeng';
+var pass             = '7418529630';
+var basicAuthMessage = 'etao tools , need password';
+var auth = express.basicAuth(function(username, password) {
+    return (username === user && password === pass);
+}, basicAuthMessage);
+
 //routes
 app.get('/', routes.index);
 
-app.get('/project/add',project.add);
+app.get('/project/add',auth,project.add); //项目只有管理员才能添加
 app.get('/project/list',project.list);
 app.get('/project/edit',project.edit);
 app.get('/upload',upload.uploadFile);
-
 app.get('/version/add/:pid',version.add);
 
 

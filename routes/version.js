@@ -6,6 +6,7 @@
 
 
 exports.add = function(req, res){
+
     res.render("versionAdd",{title:"添加版本",currentProject:"添加版本",projectId:req.params.pid});
 };
 

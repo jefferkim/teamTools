@@ -19,6 +19,8 @@ exports.add = function(req, res){
         }
     });*/
 
+
+
     res.render('projectAdd',{title:'添加项目',currentProject:'变形金刚'});
 
     $("#J-addProject").on("click",function(e){
