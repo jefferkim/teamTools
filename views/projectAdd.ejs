@@ -1,6 +1,8 @@
-<h2 class="fun-title">添加UI界面</h2>
+<h2 class="fun-title">添加项目</h2>
 
 <div class="c-form">
-    <p class="mt20"><input type="text" name="projectName" id="J-projectName" class="c-input" placeholder="项目名称"/> </p>
-    <input type="button" value="添加项目" id="J-addProject" class="c-btn mt20"/>
+    <form method="post" action="/project/new">
+        <p class="mt20"><input type="text" name="project[name]" id="J-projectName" class="c-input" placeholder="项目名称"/> </p>
+        <input type="submit" value="添加项目" id="J-addProject" class="c-btn mt20"/>
+    </form>
 </div>

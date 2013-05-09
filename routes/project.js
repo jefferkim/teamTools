@@ -1,50 +1,46 @@
-
 /*
  * project add
+ *
+ * TODO:增加dao
  */
 
 var projectModel = require('../models/Project');
+var versionModel = require('../models/Version');
 var Project = projectModel.Project;
+var Version = versionModel.Version;
 
-exports.add = function(req, res){
 
+exports.show = function (req, res) {
+    var pid = req.params.pid;
 
-    /*var t = new Project({
-        name:"变形金刚",
-        password:"test"
+    Version.find({projectId:pid}, function (err, versions) {
+        Project.findById(pid, function (err, project) {
+            res.render('versionList', {title:'项目列表', project:project, versions:versions});
+        });
     });
-    t.save(function (err, project) {
-        if (err){
-            res.send("error");
-        }
-    });*/
-
-
-
-    res.render('projectAdd',{title:'添加项目',currentProject:'变形金刚'});
-
-    $("#J-addProject").on("click",function(e){
-        e.preventDefault();
-        var pn = $("#J-projectName").val();
-        var pwd = $("#J-pwd").val();
-        $.ajax({
-            url:'',
-            success:function(){
-
-            }
-        })
-
-    });
-
-   // res.send("respond with a resource");
 };
-
-exports.list = function(req, res){
-    Project.find(function(err, projects) {
-           res.render('projectList',{title:'项目列表', projects: projects });
+exports.showAll = function (req, res) {
+    Project.find(function (err, projects) {
+        res.render('projectList', {title:'项目列表', project:{_id:"1", name:""}, projects:projects})
     });
 };
 
-exports.edit = function(req, res){
+
+//修改项目，暂时不需要
+exports.edit = function (req, res) {
     res.send("edit");
+};
+
+//创建项目，有认证
+exports.add = function (req, res) {
+    Project.find(function (err, projects) {
+        res.render('projectAdd', {title:'添加项目', projects:projects});
+    });
+};
+exports.new = function (req, res) {
+    var p = new Project({
+        name:req.body.project.name
+    });
+    p.save();
+    res.redirect('back');
 };

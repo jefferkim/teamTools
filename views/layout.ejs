@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><%=title%></title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
 </head>
 <body>
 <div class="header-bar">
@@ -15,8 +15,6 @@
     <div class="sidebar">
         <h3>您的项目</h3>
         <ul>
-            <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
 
 
         </ul>
@@ -24,7 +22,7 @@
     <div class="content">
         <div class="c">
             <div class="breadcrumb">
-                <a href="#">您的项目</a><span>><%= currentProject%></span>
+                <a href="/">您的项目</a><span>><%= project.name%></span>
             </div>
 
             <%- body%>

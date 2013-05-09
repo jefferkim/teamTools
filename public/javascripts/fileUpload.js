@@ -77,6 +77,7 @@ var ZXXFILE = {
 		}
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
+               // console.log(file);
 				var xhr = new XMLHttpRequest();
 				if (xhr.upload) {
 					// 上传中
@@ -102,9 +103,11 @@ var ZXXFILE = {
 		
 					// 开始上传
 					xhr.open("POST", self.url, true);
-					xhr.setRequestHeader("X_FILENAME", file.name);
+					//xhr.setRequestHeader("X_FILENAME", file.name);
 					xhr.send(file);
-				}	
+				}
+
+
 			})(file);	
 		}	
 			
@@ -126,7 +129,7 @@ var ZXXFILE = {
 		
 		//上传按钮提交
 		if (this.upButton) {
-			this.upButton.addEventListener("click", function(e) { self.funUploadFile(e); }, false);	
+			this.upButton.addEventListener("click", function(e) { self.funUploadFile(e); }, false);
 		} 
 	}
 };

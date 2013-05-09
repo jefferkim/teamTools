@@ -1,8 +1,9 @@
 <div class="projecList">
     <ul>
 
-        <% for(var i = 0; i< projects.length; i++){%>
-            <li><%= projects[i].name%></li>
-        <%}%>
+        <% projects.forEach( function ( project ){ %>
+        <li><a href="/project/<%= project._id %>"><%= project.name%></a></li>
+        <%})%>
+
     </ul>
 </div>

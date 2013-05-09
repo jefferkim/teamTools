@@ -1,0 +1,10 @@
+<div class="projecList">
+    <ul>
+
+        <% versions.forEach( function ( version ){ %>
+        <li><a href="/version/<%= version._id %>"><%= version.name%></a></li>
+        <%})%>
+
+    </ul>
+    <a href="/version/add/<%= project._id%>">添加版本</a>
+</div>

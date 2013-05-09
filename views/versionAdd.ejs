@@ -1,11 +1,13 @@
-<h2 class="fun-title">添加UI界面<%= projectId%></h2>
+<h2 class="fun-title">添加UI界面</h2>
 
 <div class="c-form">
+   <!--<form action="/version/new" method="post">-->
 
-       <p class="mt20"><input type="text" name="projectName" id="J-projectName" class="c-input" placeholder="版本名称"/></p>
-       <p class="mt20"><textarea name="desc" id="J-desc"  class="c-textarea" placeholder="版本描述"></textarea></p>
+       <p class="mt20"><input type="text" name="version[name]" id="J-projectName" class="c-input" placeholder="版本名称"/></p>
+       <p class="mt20"><textarea name="version[desc]" id="J-desc"  class="c-textarea" placeholder="版本描述"></textarea></p>
+       <input type="hidden" name="version[pid]" value="<%= project.id%>" style="display:none;"/>
         <div class="pic-section">
-            <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+            <form id="uploadForm" action="/version/uploadFile" method="post" enctype="multipart/form-data">
                 <div class="upload_box">
                     <div class="upload_main">
                         <div class="upload_choose">
@@ -16,6 +18,7 @@
 
                         <div class="upload_submit">
                             <button type="button" id="fileSubmit" class="upload_submit_btn" style="display: none;">确认上传图片</button>
+                            <input type="submit" value="上传啊"/>
                         </div>
                     </div>
 
@@ -23,8 +26,8 @@
                 </div>
             </form>
         </div>
-    <input type="button" value="添加版本" id="J-addVersion" class="c-btn"/>
-
+    <input type="submit" value="添加版本" class="c-btn"/>
+   <!--</form>-->
 </div>
 
 <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
@@ -34,7 +37,8 @@
         fileInput: $("#fileImage").get(0),
         dragDrop: $("#fileDragArea").get(0),
         upButton: $("#fileSubmit").get(0),
-        url: $("#uploadForm").attr("action"),
+        //url: $("#uploadForm").attr("action"),
+        url:'/version/uploadFile',
         filter: function(files) {
             var arrFiles = [];
             for (var i = 0, file; file = files[i]; i++) {

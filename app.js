@@ -63,13 +63,22 @@ var auth = express.basicAuth(function(username, password) {
 }, basicAuthMessage);
 
 //routes
-app.get('/', routes.index);
+app.get('/', project.showAll);
+app.get('/project/:pid',project.show);
+app.get('/project/edit',project.edit);
 
 app.get('/project/add',auth,project.add); //项目只有管理员才能添加
-app.get('/project/list',project.list);
-app.get('/project/edit',project.edit);
-app.get('/upload',upload.uploadFile);
+app.post('/project/new',project.new); //form post
+
+
+app.get('/version/:vid',version.show);
 app.get('/version/add/:pid',version.add);
+app.post('/version/new',version.new);
+
+
+app.post('/version/uploadFile',version.uploadFile);//add file
+
+
 
 
 
