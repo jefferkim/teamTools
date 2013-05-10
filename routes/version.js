@@ -72,29 +72,55 @@ exports.new = function(req, res){
 
 exports.uploadFile = function(req, res){
 
-   // console.log(req);
-    var t = req.files;
-    console.log(t);
+   console.log(req.files);
+    var fileName=req.param('fileName');//获取param中文件的信息
+    var fileSize=req.param('fileSize');
+    var target_path = './public/images/' + fileName ;
+    var wOption = {flags: 'w',encoding: null,mode: 0777};
+    var fileStream = fs.createWriteStream(target_path,wOption);
+    req.pipe(fileStream, { end: false });
+    req.on('end', function() {
+        console.log("传输完毕！");
+        var transfer;
+        fs.stat(target_path, function (err, data) {
+            if (err) throw err;
+            transfer=String(data.size);
+            console.log("tmp file's size :",data.size);
+            console.log("the received size is :",fileSize);
+            if(transfer==String(fileSize)){
+                res.json({"success":true});
+            }else{
+                res.send({error:"文件在传输的过程中有丢失,传输失败!"});
+            }
+        });
+    });
 
-    console.log(req.)
 
 
-    /*console.log(fileArray);
+
+
+
+
+
+
+
+    /*var t = req.files;
+    var fileArray = t.fileselect[0];
+
+
     for (var i = 0; i < fileArray.length; i++) {
         // 获得文件的临时路径
         var tmp_path = fileArray[i].path;
-        console.log(tmp_path);
         // 指定文件上传后的目录 - 示例为"images"目录。
         var target_path = './public/images/' + fileArray[i].name;
-
-        // var target_path = './public/images/' + i+"."+fileArray[i].name.split(".")[1];
         // 移动文件
         fs.rename(tmp_path, target_path, function (err) {
             if (err) throw err;
             // 删除临时文件夹文件,
             fs.unlink(tmp_path, function () {
                 if (err) throw err;
-                res.send('ver');
+
+                res.json({"success":true});
             });
         });
     }*/

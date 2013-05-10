@@ -38,13 +38,17 @@ var ZXXFILE = {
 		// 获取文件列表对象
 		var files = e.target.files || e.dataTransfer.files;
 		//继续添加文件
+
 		this.fileFilter = this.fileFilter.concat(this.filter(files));
+
 		this.funDealFiles();
-		return this;
+
+        return this;
 	},
 	
 	//选中文件的处理与回调
 	funDealFiles: function() {
+
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			//增加唯一索引值
 			file.index = i;
@@ -75,9 +79,13 @@ var ZXXFILE = {
 			//非站点服务器上运行
 			return;	
 		}
+
+
+
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
-               // console.log(file);
+
+
 				var xhr = new XMLHttpRequest();
 				if (xhr.upload) {
 					// 上传中
@@ -102,14 +110,18 @@ var ZXXFILE = {
 					};
 		
 					// 开始上传
-					xhr.open("POST", self.url, true);
-					//xhr.setRequestHeader("X_FILENAME", file.name);
+					xhr.open("POST", self.url+"?fileName=" +file.name+"&fileSize="+file.size, true);
+                    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");//直接发送文件对象的时候使用
+                    xhr.setRequestHeader("Content-Type","application/octet-stream");
+                    xhr.setRequestHeader("X_FILENAME", file.name);
 					xhr.send(file);
 				}
 
 
+
+
 			})(file);	
-		}	
+		}
 			
 	},
 	

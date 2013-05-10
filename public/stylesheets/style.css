@@ -18,6 +18,7 @@ fieldset,img{border:0;}
 button,input,select,textarea{font-size:100%;}
 table{border-collapse:collapse;border-spacing:0;}
 .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}.clearfix{display:inline-block;zoom:1;*display:inline;}/* Hides from IE-mac \*/ * html .clearfix{height:1%;}.clearfix{display:block;}/* End hide from IE-mac */
+.main{overflow:hidden;}
 .breadcrumb{
    font-size:16px;
    color:#4c4c4c;
