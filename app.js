@@ -7,6 +7,7 @@ var express = require('express');
 
 var project = require('./routes/project');
 var version = require('./routes/version');
+var admin = require('./routes/admin');
 
 var http = require('http');
 var path = require('path');
@@ -63,25 +64,18 @@ var auth = express.basicAuth(function(username, password) {
 }, basicAuthMessage);
 
 //routes
+//project
 app.get('/', project.showAll);
 app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
-
-app.get('/project/add',auth,project.add); //项目只有管理员才能添加
-app.post('/project/new',project.new); //form post
-
-
+//version
 app.get('/version/:vid',version.show);
 app.get('/version/add/:pid',version.add);
 app.post('/version/new',version.new);
-
-
 app.post('/version/uploadFile',version.uploadFile);//add file
-
-
-
-
-
+//admin
+app.get('/admin/projectadd',auth,admin.addProject); //项目只有管理员才能添加
+app.post('/admin/projectNew',admin.projectNew); //form post
 
 
 http.createServer(app).listen(app.get('port'), function(){

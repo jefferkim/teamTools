@@ -1,13 +1,12 @@
 <h2 class="fun-title">添加UI界面</h2>
 
 <div class="c-form">
-   <!--<form action="/version/new" method="post">-->
+   <form action="/version/new" method="post">
 
        <p class="mt20"><input type="text" name="version[name]" id="J-projectName" class="c-input" placeholder="版本名称"/></p>
        <p class="mt20"><textarea name="version[desc]" id="J-desc"  class="c-textarea" placeholder="版本描述"></textarea></p>
-       <input type="hidden" name="version[pid]" value="<%= project.id%>" style="display:none;"/>
         <div class="pic-section">
-            <form id="uploadForm" action="/version/uploadFile" method="post" enctype="multipart/form-data">
+
                 <div class="upload_box">
                     <div class="upload_main">
                         <div class="upload_choose">
@@ -17,16 +16,19 @@
                         <div id="preview" class="upload_preview"></div>
 
                         <div class="upload_submit">
+                            <input type="hidden" name="version[pid]" id="J-hiddenPid" value="<%= project.id%>"/>
+                            <input type="hidden" name="projectDir" id="J-hiddenPdir" value="<%= project.dirName%>"/>
+                            <input type="hidden" name="version[vid]" id="J-hiddenVid" value="<%= new Date().getTime()%>"/>
                             <button type="button" id="fileSubmit" class="upload_submit_btn" style="display: none;">确认上传图片</button>
                         </div>
                     </div>
 
                     <div id="uploadInf" class="upload_inf"></div>
                 </div>
-            </form>
+
         </div>
     <input type="submit" value="添加版本" class="c-btn"/>
-   <!--</form>-->
+   </form>
 </div>
 
 <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
@@ -101,6 +103,7 @@
             eleProgress.show().html(percent);
         },
         onSuccess: function(file, response) {
+            console.log(typeof response);
             $("#uploadInf").append("<p>上传成功，图片地址是：" + response.success + "</p>");
         },
         onFailure: function(file) {

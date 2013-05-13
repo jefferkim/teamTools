@@ -2,15 +2,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var _Project = new Schema({
-    name:String
+    name:String,
+    dirName:String//文件夹目录，存放版本
 });
 
 var Project = mongoose.model('projects', _Project);
 
-exports.addNew = function (title, callback) {
+exports.addNew = function (project, callback) {
 
-    var project = new Project();
-    project.name = title;
+    var project = new Project({
+        name : project.name,
+        dirName : project.dirName
+    });
     project.save(function (err) {
         if (err) {
             callback(err);

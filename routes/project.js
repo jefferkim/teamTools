@@ -29,15 +29,3 @@ exports.showAll = function (req, res) {
 exports.edit = function (req, res) {
     res.send("edit");
 };
-
-//创建项目，有认证
-exports.add = function (req, res) {
-    Project.findAll(function (err, projects) {
-        res.render('projectAdd', {title:'添加项目', projects:projects});
-    });
-};
-exports.new = function (req, res) {
-    Project.addNew(req.body.project.name, function (err) {
-        res.redirect('back');
-    });
-};
