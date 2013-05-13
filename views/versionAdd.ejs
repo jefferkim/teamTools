@@ -36,7 +36,6 @@
         fileInput: $("#fileImage").get(0),
         dragDrop: $("#fileDragArea").get(0),
         upButton: $("#fileSubmit").get(0),
-        //url: $("#uploadForm").attr("action"),
         url:'/version/uploadFile',
         filter: function(files) {
             var arrFiles = [];
@@ -61,9 +60,8 @@
                 if (file) {
                     var reader = new FileReader()
                     reader.onload = function(e) {
-                        html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+
-                                '<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a><br />' +
-                                '<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+
+                        html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong></p>'+
+                                '<div class="pic"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /><a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a></div>'+
                                 '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
                                 '</div>';
 
@@ -76,7 +74,7 @@
                     if (html) {
                         //删除方法
                         $(".upload_delete").click(function() {
-                            ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+                            versionUpload.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
                             return false;
                         });
                         //提交按钮显示
@@ -103,7 +101,7 @@
             eleProgress.show().html(percent);
         },
         onSuccess: function(file, response) {
-            $("#uploadInf").append("<p>上传成功，图片地址是：" + response + "</p>");
+            $("#uploadInf").append("<p>上传成功，图片地址是：" + response.success + "</p>");
         },
         onFailure: function(file) {
             $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
@@ -117,6 +115,6 @@
             $("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
         }
     };
-    ZXXFILE = $.extend(ZXXFILE, params);
-    ZXXFILE.init();
+    versionUpload = $.extend(ZXXFILE, params);
+    versionUpload.init();
 </script>

@@ -37,7 +37,6 @@ exports.new = function(req, res){
 
 exports.uploadFile = function(req, res){
 
-   console.log(req.files);
     var fileName=req.param('fileName');//获取param中文件的信息
     var fileSize=req.param('fileSize');
     var target_path = './public/images/' + fileName ;
@@ -59,36 +58,6 @@ exports.uploadFile = function(req, res){
             }
         });
     });
-
-
-
-
-
-
-
-
-
-
-    /*var t = req.files;
-    var fileArray = t.fileselect[0];
-
-
-    for (var i = 0; i < fileArray.length; i++) {
-        // 获得文件的临时路径
-        var tmp_path = fileArray[i].path;
-        // 指定文件上传后的目录 - 示例为"images"目录。
-        var target_path = './public/images/' + fileArray[i].name;
-        // 移动文件
-        fs.rename(tmp_path, target_path, function (err) {
-            if (err) throw err;
-            // 删除临时文件夹文件,
-            fs.unlink(tmp_path, function () {
-                if (err) throw err;
-
-                res.json({"success":true});
-            });
-        });
-    }*/
 
 };
 

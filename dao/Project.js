@@ -27,7 +27,6 @@ exports.findAll = function(callback){
 
 
 var findProjectById = exports.findProjectById = function (id, callback) {
-    console.log("======"+id);
     Project.findById(id, function (err, doc) {
         if (err) {
             callback(err, null);

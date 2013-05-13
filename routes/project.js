@@ -11,21 +11,11 @@ var Version = require('../dao/Version');
 
 exports.show = function (req, res) {
     var pid = req.params.pid;
-
-    console.log(pid);
-
-
-
-
-        Version.findByVersionId(pid, function (err, versions) {
-
-            console.log(versions);
-            Project.findProjectById(pid, function (err, project) {
-                res.render('versionList', {title:'项目列表', project:project, versions:versions});
-            });
+    Version.findByVersionId(pid, function (err, versions) {
+        Project.findProjectById(pid, function (err, project) {
+            res.render('versionList', {title:'项目列表', project:project, versions:versions});
         });
-
-
+    });
 };
 
 exports.showAll = function (req, res) {
@@ -42,17 +32,12 @@ exports.edit = function (req, res) {
 
 //创建项目，有认证
 exports.add = function (req, res) {
-    console.log("fffffff=======");
     Project.findAll(function (err, projects) {
-        console.log(projects);
-      //  res.render('projectAdd', {title:'添加项目', projects:projects});
+        res.render('projectAdd', {title:'添加项目', projects:projects});
     });
 };
 exports.new = function (req, res) {
-
-
-    Project.addNew(req.body.project.name,function(err){
+    Project.addNew(req.body.project.name, function (err) {
         res.redirect('back');
-    })
-
+    });
 };
