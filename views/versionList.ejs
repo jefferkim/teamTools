@@ -4,7 +4,7 @@
         <% versions.forEach( function ( version ){ %>
         <li><a href="/version/<%= version._id %>"><%= version.name%></a></li>
         <%})%>
-        <li class="add-version"><a href="/version/add/<%= project._id%>">添加版本</a></li>
+        <li class="add-version"><a href="/version/add/<%= project._id%>"><span class="icon">+</span></a><p><em>添加版本</em></p></li>
     </ul>
 
 </div>

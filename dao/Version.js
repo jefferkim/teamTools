@@ -6,6 +6,7 @@ var _Version = new Schema({
     projectId : String,
     versionId : String,
     desc: String,
+    mainPicPath : String,
     author: String
 });
 
@@ -40,6 +41,16 @@ exports.addNew = function(version,callback){
     });
 };
 
+exports.setMainPicPath = function(vid,path,callback){
+   Version.update({versionId:vid},{mainPicPath:path},function(err,doc){
+       if(err){
+           callback(err);
+       }else{
+           callback(null,doc);
+       }
+   })
+};
+
 exports.findByVersionId = function(pid,callback){
     Version.find({projectId:pid}, function (err,docs) {
         if (err) {
@@ -49,4 +60,6 @@ exports.findByVersionId = function(pid,callback){
         }
     });
 };
+
+
 

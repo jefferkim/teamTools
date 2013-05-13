@@ -73,9 +73,12 @@ app.get('/version/:vid',version.show);
 app.get('/version/add/:pid',version.add);
 app.post('/version/new',version.new);
 app.post('/version/uploadFile',version.uploadFile);//add file
+app.post('/version/setMainPic',version.setMainPic);//设置封面
+
 //admin
 app.get('/admin/projectadd',auth,admin.addProject); //项目只有管理员才能添加
 app.post('/admin/projectNew',admin.projectNew); //form post
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

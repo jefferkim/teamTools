@@ -19,7 +19,7 @@
                             <input type="hidden" name="version[pid]" id="J-hiddenPid" value="<%= project.id%>"/>
                             <input type="hidden" name="projectDir" id="J-hiddenPdir" value="<%= project.dirName%>"/>
                             <input type="hidden" name="version[vid]" id="J-hiddenVid" value="<%= new Date().getTime()%>"/>
-                            <button type="button" id="fileSubmit" class="upload_submit_btn" style="display: none;">确认上传图片</button>
+                            <div class="submit-wrap"><button type="button" id="fileSubmit" class="upload_submit_btn" style="display: none;">确认上传图片</button></div>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
                 </div>
 
         </div>
-    <input type="submit" value="添加版本" class="c-btn"/>
+    <div class="mt20"><input type="submit" value="添加版本" class="c-btn"/></div>
    </form>
 </div>
 
@@ -103,8 +103,8 @@
             eleProgress.show().html(percent);
         },
         onSuccess: function(file, response) {
-            console.log(typeof response);
-            $("#uploadInf").append("<p>上传成功，图片地址是：" + response.success + "</p>");
+            var imgObj = JSON.parse(response).info;
+            $("#uploadInf").append('<div class="preview-pic"><img src="'+"/images/"+imgObj.projectDir+"/"+imgObj.versionDir+"/"+imgObj.path + '"/><a herf="#" class="J-addToMain" data-picId="'+imgObj._id+'" data-path="'+imgObj.path+'">设为封面</a></div>');
         },
         onFailure: function(file) {
             $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
@@ -118,6 +118,25 @@
             $("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
         }
     };
-    versionUpload = $.extend(ZXXFILE, params);
+
+    $("#uploadInf").on("click",".J-addToMain",function(e){
+        e.preventDefault();
+        var target = e.currentTarget;
+        if(!$(target).hasClass("isMain")){
+            $.ajax({
+                url:"/version/setMainPic",
+                method:"post",
+                data:{picId:$(target).attr("data-picId"),"versionId":$("#J-hiddenVid").val(),"path":$(target).attr("data-path")},
+                success:function(res){
+                    console.log(res);
+                    if(res.success){
+                        $(".J-addToMain").removeClass("isMain").text("设为封面");
+                        $(target).addClass("isMain").text("主封面");
+                    }
+                }
+            })
+        }
+    })
+    versionUpload = $.extend(versionPic, params);
     versionUpload.init();
 </script>

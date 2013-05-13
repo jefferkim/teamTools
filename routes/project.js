@@ -7,6 +7,7 @@
 
 var Project = require('../dao/Project');
 var Version = require('../dao/Version');
+var Picture = require('../dao/Picture');
 
 
 exports.show = function (req, res) {
