@@ -2,9 +2,9 @@
     <ul>
 
         <% versions.forEach( function ( version ){ %>
-        <li><a href="/version/<%= version._id %>"><img src="/images/1.png" alt=""/></a>
+        <li><a href="/version/<%= version._id %>"><img src="/images/<%= project.dirName%>/<%= version.versionId%>/<%= version.mainPicPath%>" alt=""/></a>
             <span class="t"><%= version.name%></span>
-            <a href="#" class="J-viewQR" data-url="/version/<%= version._id %>">二维码预览</a><div class="J-qrWrap"></div>
+            <a href="#" class="J-viewQR" data-url="/version/mobile/<%= version._id %>">二维码预览</a><div class="J-qrWrap"></div>
         </li>
         <% }) %>
 
@@ -14,17 +14,6 @@
 </div>
 
 <script type="text/javascript">
-    $(".J-viewQR").on("mouseover mouseout",function(e){
-        e.preventDefault();
-        var target = e.target;
-        var qrWrap = $(target).next(".J-qrWrap");
-        var url = location.host + $(target).attr("data-url");
-        console.log(url);
-        if(e.type == "mouseover"){
-            qrWrap.qrcode({width: 160,height: 160,text: url});
-        }else{
-            qrWrap.html("");
-        }
-    });
+    previewQR(160);
 </script>
 

@@ -21,6 +21,14 @@ exports.edit = function (req, res) {
 };
 
 
+exports.mobile = function(req, res){
+    Version.findVersionById(req.param('vid'), function (err, version) {
+        Picture.findPicturesByVersionId(version.versionId, function (err, pictures) {
+            res.render("moblieShow", {title:"查看版本",pictures:pictures,layout: 'mobileLayout'});
+        });
+    });
+}
+
 //增加版本
 exports.add = function (req, res) {
     Project.findProjectById(req.params.pid, function (err, project) {
@@ -32,9 +40,18 @@ exports.add = function (req, res) {
 
 exports.new = function (req, res) {
     var versionParams = req.body.version;
-    Version.addNew(versionParams, function (err, version) {
-        res.redirect('project/' + versionParams.pid);
-    });
+    Version.findVid(versionParams.vid,function(err,vesion){
+        if(!vesion.length){
+            Version.addNew(versionParams, function (e, v) {
+                res.redirect('project/' + versionParams.pid);
+            });
+        }else{
+            Version.updateVersion(versionParams,function(e,v){
+                res.redirect('project/' + versionParams.pid);
+            });
+        }
+    })
+
 };
 
 
@@ -42,10 +59,21 @@ exports.setMainPic = function (req, res) {
     var picId = req.param("picId");
     var vid = req.param("versionId");
     var path = req.param("path");
+    var pid = req.param("pid");
     Picture.resetMainFlag(vid, function (err, doc) {
         Picture.setMainPicFlag(picId, function (err, version) {
             if (!err) {
-                res.json({"success":true});
+                Version.findVid(vid,function(e,d){
+                    if(!e){
+                        Version.addNew({name:"版本名称",pid:pid,vid:vid,desc: "版本简介",mainPicPath:path || '', author: ''},function(e1,d1){
+                            res.json({"success":true});
+                        });
+                    } else{
+                        Version.updateVersionByVid(vid,path,function(e,d){
+                            res.json({"success":true});
+                        });
+                    }
+                });
             }
         });
     });
@@ -86,6 +114,8 @@ exports.uploadFile = function (req, res) {
     var pid = req.param('pid');//项目id
     var versionDir = req.param('vid');
 
+
+
     var path = './public/images/' + uploadDir + '/' + versionDir;
 
     exports.mkdirSync(path, 0, function (e) {
@@ -111,7 +141,6 @@ exports.uploadFile = function (req, res) {
                 console.log("the received size is :", fileSize);
                 if (transfer == String(fileSize)) {
                     Picture.addNew(fileName, versionDir, pid, uploadDir, function (err, doc) {
-
                         res.json({"info":doc});
                     });
 
@@ -120,6 +149,10 @@ exports.uploadFile = function (req, res) {
                 }
             });
         });
+
+
+
+
     });
 
 };

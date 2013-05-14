@@ -76,6 +76,8 @@ app.post('/version/new',version.new);
 app.post('/version/uploadFile',version.uploadFile);//add file
 app.post('/version/setMainPic',version.setMainPic);//设置封面
 
+app.get('/version/mobile/:vid',version.mobile);//手机端显示
+
 //admin
 app.get('/admin/projectadd',auth,admin.addProject); //项目只有管理员才能添加
 app.post('/admin/projectNew',admin.projectNew); //form post

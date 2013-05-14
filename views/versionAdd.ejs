@@ -130,7 +130,7 @@
             $.ajax({
                 url:"/version/setMainPic",
                 method:"post",
-                data:{picId:$(target).attr("data-picId"),"versionId":$("#J-hiddenVid").val(),"path":$(target).attr("data-path")},
+                data:{picId:$(target).attr("data-picId"),"versionId":$("#J-hiddenVid").val(),"path":$(target).attr("data-path"),"pid":$("#J-hiddenPid").val()},
                 success:function(res){
                     console.log(res);
                     if(res.success){
@@ -152,8 +152,5 @@
         $(target).addClass("inputing");
         $(target).html('<input type="text" value="'+pathName+'"/>');
 
-
-
-
-    })
+    });
 </script>

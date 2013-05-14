@@ -1,8 +1,36 @@
-<div class="versionList">
-    <ul>
-        <% pictures.forEach( function ( picture ){ %>
-        <li><img src="/images/<%= picture.projectDir%>/<%= picture.versionDir%>/<%= picture.path%>" alt=""></li>
-        <%})%>
-    </ul>
-
+<div class="version-wrap">
+    <div class="version-silder" id="J-versionSilder">
+        <ul>
+            <% pictures.forEach( function ( picture ){ %>
+            <li>
+                <p><img src="/images/<%= picture.projectDir%>/<%= picture.versionDir%>/<%= picture.path%>" alt=""></p>
+                <span class="t"><%= picture.path%></span>
+                <span class="J-viewQR" data-url="/images/<%= picture.projectDir%>/<%= picture.versionDir%>/<%= picture.path%>">二维码预览</span><div class="J-qrWrap"></div>
+            </li>
+            <%})%>
+        </ul>
+    </div>
+    <a href="#" class="J-prev"><</a>
+    <a href="#" class="J-next">></a>
 </div>
+
+
+
+
+<script type="text/javascript" src="/javascripts/swipe.js"></script>
+<script type="text/javascript">
+
+        var t = new Swipe(document.getElementById('J-versionSilder'),{
+            fixWidth:"600"
+        });
+        $(".J-prev").on("click",function(e){
+            e.preventDefault();
+            t.prev();
+        });
+        $(".J-next").on("click",function(e){
+            e.preventDefault();
+            t.next();
+        });
+
+        previewQR(320);
+</script>

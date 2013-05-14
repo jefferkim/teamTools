@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css"/>
     <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/javascripts/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="/javascripts/tools.js"></script>
 </head>
 <body>
 <div class="header-bar">
@@ -46,11 +47,11 @@
                 for(var i = 0 ; i< res.length; i++){
                     ul += '<li><a href="/project/'+res[i]._id+'">'+res[i].name+'</a></li>';
                 }
-
                 $("#J-sidebar").html(ul);
             }
         })
     });
+
 </script>
 
 

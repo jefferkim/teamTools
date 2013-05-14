@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var _Version = new Schema({
     name : String,
     projectId : String,
-    versionId : String,
+    versionId : String,  //对应的版本号，但是查询还是使用id
     desc: String,
     mainPicPath : String,
     author: String
@@ -22,6 +22,27 @@ exports.findVersionById = function(id,callback){
     });
 };
 
+exports.findVid = function(vid,callback){
+
+    Version.find({versionId:vid},function(err,doc){
+        if(err){
+            callback(err);
+        }else{
+            callback(null,doc);
+        }
+    });
+}
+
+exports.updateVersion = function(version,callback){
+    Version.update({},version,function(err,doc){
+        if(err){
+            callback(err);
+        }else{
+            callback(null,doc);
+        }
+    })
+};
+
 exports.addNew = function(version,callback){
 
     var version = new Version({
@@ -29,6 +50,7 @@ exports.addNew = function(version,callback){
         projectId : version.pid,
         versionId : version.vid,
         desc: version.desc,
+        mainPicPath : version.mainPicPath || '',
         author: ''
     });
 
@@ -42,14 +64,24 @@ exports.addNew = function(version,callback){
 };
 
 exports.setMainPicPath = function(vid,path,callback){
-   Version.update({versionId:vid},{mainPicPath:path},function(err,doc){
+   Version.find({versionId:vid},function(err,version){
        if(err){
            callback(err);
        }else{
-           callback(null,doc);
+           callback(null,version);
        }
    })
 };
+
+exports.updateVersionByVid = function(vid,path,callback){
+    Version.update({versionId:vid},{mainPicPath:path},function(err,doc){
+    if(err){
+        callback(err);
+    }else{
+        callback(null,doc);
+    }
+});
+}
 
 exports.findByVersionId = function(pid,callback){
     Version.find({projectId:pid}, function (err,docs) {

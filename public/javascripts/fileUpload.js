@@ -71,7 +71,10 @@ var versionPic = {
 	
 	//文件上传
 	funUploadFile: function() {
-		var self = this;	
+		var self = this;
+        var $getValue = function(id){
+            return document.getElementById(id).value;
+        }
 		if (location.host.indexOf("sitepointstatic") >= 0) {
 			//非站点服务器上运行
 			return;	
@@ -107,8 +110,10 @@ var versionPic = {
 					};
 
 
+                    var urlParams = "?pid="+$getValue('J-hiddenPid')+"&pdir="+$getValue('J-hiddenPdir')+"&vid="+$getValue('J-hiddenVid');
+
 					// 开始上传
-					xhr.open("POST", self.url+"?pid="+document.getElementById('J-hiddenPid').value+"&pdir="+document.getElementById('J-hiddenPdir').value+"&vid="+document.getElementById('J-hiddenVid').value+"&fileName=" +file.name+"&fileSize="+file.size, true);
+					xhr.open("POST", self.url+ urlParams +"&fileName=" +file.name+"&fileSize="+file.size, true);
                     xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");//直接发送文件对象的时候使用
                     xhr.setRequestHeader("Content-Type","application/octet-stream");
                     xhr.setRequestHeader("X_FILENAME", file.name);
