@@ -21,10 +21,16 @@ exports.show = function (req, res) {
 
 exports.showAll = function (req, res) {
     Project.findAll(function (err, projects) {
-        res.render('projectList', {title:'项目列表', project:{_id:"1", name:""}, projects:projects})
+        res.render('projectList', {title:'项目列表', project:{_id:"1", name:""}, projects:projects});
     });
 };
 
+exports.showSidebar = function(req, res){
+    console.log(req);
+     Project.findAll(function(err,projects){
+         res.json(projects);
+    });
+}
 
 //修改项目，暂时不需要
 exports.edit = function (req, res) {

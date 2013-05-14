@@ -31,7 +31,7 @@
    </form>
 </div>
 
-<script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+
 <script type="text/javascript" src="/javascripts/fileUpload.js"></script>
 <script>
     var params = {
@@ -62,7 +62,7 @@
                 if (file) {
                     var reader = new FileReader()
                     reader.onload = function(e) {
-                        html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong></p>'+
+                        html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong title="点击修改名称">' + file.name + '</strong></p>'+
                                 '<div class="pic"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /><a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a></div>'+
                                 '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
                                 '</div>';
@@ -119,6 +119,10 @@
         }
     };
 
+
+    versionUpload = $.extend(versionPic, params);
+    versionUpload.init();
+
     $("#uploadInf").on("click",".J-addToMain",function(e){
         e.preventDefault();
         var target = e.currentTarget;
@@ -137,6 +141,19 @@
             })
         }
     })
-    versionUpload = $.extend(versionPic, params);
-    versionUpload.init();
+
+    $("#preview").on("click",".upload_append_list strong",function(e){
+        e.preventDefault();
+        var target = e.currentTarget;
+        if($(target).hasClass("inputing")) return;
+        var path = $(target).text().split(".");
+        var pathName = path[0];//粗糙
+        var type = path[1];
+        $(target).addClass("inputing");
+        $(target).html('<input type="text" value="'+pathName+'"/>');
+
+
+
+
+    })
 </script>

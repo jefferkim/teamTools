@@ -68,6 +68,7 @@ var auth = express.basicAuth(function(username, password) {
 app.get('/', project.showAll);
 app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
+app.post('/project/querySidebar',project.showSidebar);
 //version
 app.get('/version/:vid',version.show);
 app.get('/version/add/:pid',version.add);

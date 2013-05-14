@@ -3,10 +3,12 @@
 <head>
     <title><%=title%></title>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery.qrcode.js"></script>
 </head>
 <body>
 <div class="header-bar">
-    <h1>秘密的项目</h1>
+    <h1><a href="/">秘密的项目</a></h1>
 </div>
 
 
@@ -15,7 +17,8 @@
     <div class="sidebar">
         <div class="sidebar-content">
             <h3>您的项目</h3>
-            <ul>
+            <ul id="J-sidebar" class="side-list">
+
 
 
             </ul>
@@ -24,7 +27,7 @@
     <div class="content">
         <div class="c">
             <div class="breadcrumb">
-                <a href="/">您的项目</a><span>><%= project.name%></span>
+                <a href="/">您的项目</a><span><%= project.name ? ' > '+project.name : ''%></span>
             </div>
 
             <%- body%>
@@ -33,6 +36,22 @@
 
 </div>
 
+<script>
+    $(document).ready(function(){
+        var ul = '';
+        $.ajax({
+            url:'/project/querySidebar',
+            method:'post',
+            success:function(res){
+                for(var i = 0 ; i< res.length; i++){
+                    ul += '<li><a href="/project/'+res[i]._id+'">'+res[i].name+'</a></li>';
+                }
+
+                $("#J-sidebar").html(ul);
+            }
+        })
+    });
+</script>
 
 
 </body>

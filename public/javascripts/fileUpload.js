@@ -105,7 +105,8 @@ var versionPic = {
 							}
 						}
 					};
-		
+
+
 					// 开始上传
 					xhr.open("POST", self.url+"?pid="+document.getElementById('J-hiddenPid').value+"&pdir="+document.getElementById('J-hiddenPdir').value+"&vid="+document.getElementById('J-hiddenVid').value+"&fileName=" +file.name+"&fileSize="+file.size, true);
                     xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");//直接发送文件对象的时候使用

@@ -1,8 +1,8 @@
-<div class="projectList lists clearfix">
+<div class="lists projectList clearfix">
     <ul>
 
         <% projects.forEach( function ( project ){ %>
-        <li><a href="/project/<%= project._id %>"><img src="/images/1.png" alt=""/></a><a href="/project/<%= project._id %>"><%= project.name%></a></li>
+        <li><a href="/project/<%= project._id %>"><img src="/images/1.png" alt=""/></a><span class="t"><%= project.name%></span></li>
         <%})%>
 
     </ul>
