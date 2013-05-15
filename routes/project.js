@@ -26,7 +26,7 @@ exports.showAll = function (req, res) {
 };
 
 exports.showSidebar = function(req, res){
-    console.log(req);
+
      Project.findAll(function(err,projects){
          res.json(projects);
     });

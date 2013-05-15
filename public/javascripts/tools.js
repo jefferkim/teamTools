@@ -5,9 +5,10 @@ function previewQR(width){
             var target = e.target;
             var qrWrap = $(target).next(".J-qrWrap");
             var url = location.host + $(target).attr("data-url");
+
             if(e.type == "mouseover"){
                 qrWrap.show();
-                qrWrap.qrcode({width: width,height: width,text: url});
+                qrWrap.qrcode({width: width,height: width,text: encodeURI(url)});
             }else{
                 qrWrap.hide();
                 qrWrap.html("");

@@ -1,9 +1,9 @@
 <h2 class="fun-title">添加UI界面</h2>
 
 <div class="c-form">
-   <form action="/version/new" method="post">
+   <form action="/version/new" method="post" id="J-versionAddFrom">
 
-       <p class="mt20"><input type="text" name="version[name]" id="J-projectName" class="c-input" placeholder="版本名称"/></p>
+       <p class="mt20"><input type="text" name="version[name]" id="J-versionName" class="c-input" placeholder="版本名称"/></p>
        <p class="mt20"><textarea name="version[desc]" id="J-desc"  class="c-textarea" placeholder="版本描述"></textarea></p>
         <div class="pic-section">
 
@@ -27,7 +27,7 @@
                 </div>
 
         </div>
-    <div class="mt20"><input type="submit" value="添加版本" class="c-btn"/></div>
+    <div class="mt20"><input type="submit" value="添加版本" class="c-btn" id="J-addVesionBtn"/></div>
    </form>
 </div>
 
@@ -152,5 +152,15 @@
         $(target).addClass("inputing");
         $(target).html('<input type="text" value="'+pathName+'"/>');
 
+    });
+
+    $("#J-addVesionBtn").on("click",function(e){
+        e.preventDefault();
+        if($("#J-versionName").val()=="" && $("#J-desc").val()==""){
+            alert("请输入版本名称和版本描述");
+            return;
+        }else{
+           $("#J-versionAddFrom").submit();
+        }
     });
 </script>

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var _Project = new Schema({
     name:String,
+    projectPath : String,
     dirName:String//文件夹目录，存放版本
 });
 
@@ -12,7 +13,8 @@ exports.addNew = function (project, callback) {
 
     var project = new Project({
         name : project.name,
-        dirName : project.dirName
+        dirName : project.dirName,
+        projectPath : project.fileName
     });
     project.save(function (err) {
         if (err) {

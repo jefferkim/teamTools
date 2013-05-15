@@ -1,9 +1,10 @@
 <h2 class="fun-title">添加项目</h2>
 
 <div class="c-form">
-    <form method="post" action="/admin/projectNew">
-        <p class="mt20"><input type="text" name="project[name]" class="c-input" placeholder="项目名称"/> </p>
-        <p class="mt20"><input type="text" name="project[dirName]" class="c-input" placeholder="项目存放目录"/> </p>
+    <form method="post" action="/admin/projectNew" enctype="multipart/form-data">
+        <p class="mt20"><input type="text" name="name" class="c-input" placeholder="项目名称"/> </p>
+        <p class="mt20"><input type="text" name="dirName" class="c-input" placeholder="项目存放目录"/> </p>
+        <p class="mt20"><input type="file" name="fileObject" class="c-input"/> </p>
         <input type="submit" value="添加项目" id="J-addProject" class="c-btn mt20"/>
     </form>
 </div>

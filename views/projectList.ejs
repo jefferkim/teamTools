@@ -2,7 +2,7 @@
     <ul>
 
         <% projects.forEach( function ( project ){ %>
-        <li><a href="/project/<%= project._id %>"><img src="/images/1.png" alt=""/></a><span class="t"><%= project.name%></span></li>
+        <li><a href="/project/<%= project._id %>"><img src="/images/_projectPic/<%= project.projectPath%>" alt=""/></a><span class="t"><%= project.name%></span></li>
         <%})%>
 
     </ul>
