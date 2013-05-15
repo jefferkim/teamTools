@@ -309,6 +309,7 @@ a {
     position:absolute;
     left:140px;
     bottom:250px;
+    border:1px solid #efefef;
 }
 
 .mobile-version-silder{
