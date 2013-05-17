@@ -120,9 +120,6 @@ var versionPic = {
 					xhr.send(file);
 				}
 
-
-
-
 			})(file);	
 		}
 			

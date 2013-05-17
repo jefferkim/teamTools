@@ -12,32 +12,44 @@ exports.addProject = function (req, res) {
 
 
 exports.projectNew = function (req, res) {
-    var info = req.headers;
 
-    var fileObj = req.files.fileObject;
-    var tmp_path = fileObj.path;
-
-    var target_path = './public/images/_projectPic/' + fileObj.name;
-
+    var target_path = './public/images/_projectPic/' + req.param("fileName");
+    var fileSize = req.param("fileSize");
     var projectParam = {
-        name:req.body.name,
-        dirName : req.body.dirName,
-        fileName : fileObj.name
+        name:req.param("name"),
+        dirName:req.param("dirName"),
+        fileName:req.param("fileName")
     };
 
-    fs.rename(tmp_path, target_path, function (err) {
-        if (err) throw err;
-        fs.unlink(tmp_path, function () {
+
+    var wOption = {flags:'w', encoding:null, mode:0777};
+    var fileStream = fs.createWriteStream(target_path, wOption);
+    req.pipe(fileStream, { end:false });
+    req.on('end', function () {
+
+
+        console.log("传输完毕！");
+        var transfer;
+        fs.stat(target_path, function (err, data) {
             if (err) throw err;
+            transfer = String(data.size);
+            console.log("tmp file's size :", data.size);
+            console.log("the received size is :", fileSize);
+            if (transfer == String(fileSize)) {
+                Project.addNew(projectParam, function (e, r) {
+                    if (!e) {
+                        res.json({success:true});
 
-            Project.addNew(projectParam,function(e,r){
-                if(!e){
-                    res.redirect("/");
-                }
-            });
+                    }
+                });
+
+            } else {
+                res.send({error:"文件在传输的过程中有丢失,传输失败!"});
+            }
         });
-    });
 
+
+    });
 
 };
 

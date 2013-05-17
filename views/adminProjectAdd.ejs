@@ -1,10 +1,51 @@
 <h2 class="fun-title">添加项目</h2>
 
 <div class="c-form">
-    <form method="post" action="/admin/projectNew" enctype="multipart/form-data">
-        <p class="mt20"><input type="text" name="name" class="c-input" placeholder="项目名称"/> </p>
-        <p class="mt20"><input type="text" name="dirName" class="c-input" placeholder="项目存放目录"/> </p>
-        <p class="mt20"><input type="file" name="fileObject" class="c-input"/> </p>
+    <form method="post" action="/admin/projectNew">
+        <p class="mt20"><input type="text" name="name" class="c-input" id="J-pName" placeholder="项目名称"/> </p>
+        <p class="mt20"><input type="text" name="dirName" class="c-input" id="J-dirName" placeholder="项目存放目录"/> </p>
+        <p class="mt20"><input type="file" name="fileObject" class="c-input" id="J-fileObj"/> </p>
+        <input type="hidden" name="fileName" value="" id="J-fileName"/>
+        <input type="hidden" name="fileSize" value="" id="J-fileSize"/>
         <input type="submit" value="添加项目" id="J-addProject" class="c-btn mt20"/>
     </form>
 </div>
+<script type="text/javascript">
+    var fileObj = $("#J-fileObj");
+    var files;
+
+    fileObj.on("change",function(e){
+        files = e.target.files || e.dataTransfer.files;
+        $("#J-fileName").val(files[0].name);
+        $("#J-fileSize").val(files[0].size);
+    });
+
+
+    $("#J-addProject").on("click",function(e){
+        e.preventDefault();
+        var xhr = new XMLHttpRequest();
+
+
+        // 开始上传
+        xhr.open("POST", '/admin/projectNew'+"?fileName=" +files[0].name+"&fileSize="+files[0].size+"&name="+$("#J-pName").val()+"&dirName="+$("#J-dirName").val(), true);
+        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");//直接发送文件对象的时候使用
+        xhr.setRequestHeader("Content-Type","application/octet-stream");
+        xhr.setRequestHeader("X_FILENAME", files[0].name);
+        xhr.send(files[0]);
+
+
+        xhr.onreadystatechange = function(e) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                       window.location.href = "/";
+
+                }
+            }
+        }
+
+    })
+
+
+
+
+</script>
