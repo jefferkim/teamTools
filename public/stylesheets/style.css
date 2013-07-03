@@ -196,11 +196,8 @@ a {
 
 .content {
     width: 100%;
-    margin-right: -220px;
     padding-bottom:50px;
-    float: right;
     background: #fff;
-    min-height: 600px;
 }
 
 .c {
