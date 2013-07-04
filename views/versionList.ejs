@@ -1,10 +1,20 @@
 <div class="lists projectList">
+
+    <div class="fun-bar">
+       <h3>项目名称。。。</h3>
+       <a href="#" id="J-createDir">新建原型</a>
+    </div>
+
     <ul>
 
         <% versions.forEach( function ( version ){ %>
         <li><a href="/version/<%= version._id %>"><img src="/images/<%= project.dirName%>/<%= version.versionId%>/<%= version.mainPicPath%>" alt=""/></a>
             <span class="t"><%= version.name%></span>
-            <a href="#" class="J-viewQR" data-url="/version/mobile/<%= version._id %>">二维码预览</a><div class="J-qrWrap"></div>
+
+
+            <a href="#" class="J-viewQR" data-url="/version/mobile/<%= version._id %>">分享</a>
+            <a href="#" class="J-delete">删除</a>
+            <div class="J-qrWrap"></div>
         </li>
         <% }) %>
 
@@ -14,6 +24,6 @@
 </div>
 
 <script type="text/javascript">
-    previewQR(160);
+    //previewQR(160);
 </script>
 

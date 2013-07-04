@@ -6,6 +6,9 @@
 var express = require('express');
 
 var project = require('./routes/project');
+
+var my = require('./routes/my');
+
 var version = require('./routes/version');
 var admin = require('./routes/admin');
 
@@ -69,6 +72,14 @@ app.get('/', project.showAll);
 app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
 app.post('/project/querySidebar',project.showSidebar);
+
+
+//我的目录
+app.get('/my',my.myList);
+
+
+
+
 //version
 app.get('/version/:vid',version.show);
 app.get('/version/add/:pid',version.add);

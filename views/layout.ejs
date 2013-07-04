@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%=title%></title>
+    <title>项目</title>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
-    <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/jquery.qrcode.js"></script>
-    <script type="text/javascript" src="/javascripts/tools.js"></script>
+    <script type="text/javascript" src="http://a.tbcdn.cn/s/kissy/1.3.0/seed-min.js"></script>
+
 </head>
 <body>
 <div class="header-bar">
@@ -25,7 +24,7 @@
     <div class="content">
         <div class="c">
             <div class="breadcrumb">
-                <a href="/">您的项目</a><span><%= project.name ? ' > '+project.name : ''%></span>
+                <a href="/">您的项目</a><span>project.name</span>
             </div>
 
             <%- body%>
@@ -34,8 +33,10 @@
 
 </div>
 
+<!--<script type="text/javascript" src="/javascripts/jquery.qrcode.js"></script>
+<script type="text/javascript" src="/javascripts/tools.js"></script>-->
 <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         var ul = '';
         $.ajax({
             url:'/project/querySidebar',
@@ -47,9 +48,11 @@
                 $("#J-sidebar").html(ul);
             }
         })
-    });
+    });*/
 
 </script>
+
+
 
 
 </body>
