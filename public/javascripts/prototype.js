@@ -1,4 +1,4 @@
-console.log("mylist.js");
+console.log("prototype.js");
 
 KISSY.use("event,node,overlay,component/plugin/drag", function (S, Event, Node, O, DragPlugin) {
 
@@ -6,8 +6,8 @@ KISSY.use("event,node,overlay,component/plugin/drag", function (S, Event, Node, 
 
     var createDir_dialog = new O.Dialog({
         width:400,
-        headerContent:'新建目录',
-        bodyContent:$("#J-createDirTmp").html(),
+        headerContent:'原型设置',
+        bodyContent:$("#J-prototype-setting").html(),
         mask:true,
         align:{
             points:['cc', 'cc']
@@ -15,7 +15,7 @@ KISSY.use("event,node,overlay,component/plugin/drag", function (S, Event, Node, 
     });
 
 
-    $("#J-createDir").on("click", function (e) {
+    $("#J-addInterface").on("click", function (e) {
         e.preventDefault();
         createDir_dialog.show();
     })

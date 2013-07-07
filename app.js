@@ -9,6 +9,8 @@ var project = require('./routes/project');
 
 var my = require('./routes/my');
 
+var flow = require('./routes/flow');
+
 var version = require('./routes/version');
 var admin = require('./routes/admin');
 
@@ -76,6 +78,16 @@ app.post('/project/querySidebar',project.showSidebar);
 
 //我的目录
 app.get('/my',my.myList);
+
+//创建流程
+
+app.get('/flow',flow.step1);
+
+
+//流程上传图片
+
+app.get('/flow/addVersion',flow.addVersion);
+app.get('/flow/addEffect',flow.addEffect);
 
 
 

@@ -1,0 +1,160 @@
+<h2 class="fun-title">添加热点</h2>
+        <a href="#" id="J-addLink">添加热点</a>
+
+        <style>
+            .link-effect{
+                height:30px;
+            }
+            .link-effect li{
+                margin:0 10px;
+                float:left;
+                width:20px;
+                height:20px;
+                background:#efefef;
+            }
+            .picss li{
+                position:relative;
+                margin:0 5px;
+                float:left;
+                width:185px;
+                height:278px;
+                overflow:hidden;
+            }
+            .picss li img{
+                width:185px;
+            }
+            .picss li .hotspot{
+                position:absolute;
+                left:0;
+                top:0;
+                background:red;
+                z-index:5;
+                width:50px;
+                height:50px;
+                opacity:0.2
+            }
+        </style>
+<div class="c-form">
+   <form action="/version/new" method="post" id="J-versionAddFrom">
+
+        <div class="pic-section">
+            <div class="link-effect">
+                <ul>
+                    <li data-effect="e1">向上</li>
+                    <li data-effect="e1">向下</li>
+
+                </ul>
+
+
+            </div>
+
+            <div class="picss">
+                <ul>
+                    <li id="j"><img src="/images/test/1.png"/><div class="hotspot"></div></li>
+                    <li><img src="/images/test/2.png"/><div class="hotspot"></div></li>
+                    <li><img src="/images/test/3.png"/><div class="hotspot"></div></li>
+                    <li><img src="/images/test/4.png"/><div class="hotspot"></div></li>
+                    <li><img src="/images/test/5.png"/></li>
+                    <li><img src="/images/test/6.png"/></li>
+
+
+                </ul>
+
+
+            </div>
+
+
+
+
+        </div>
+    <div class="mt20"><input type="submit" value="添加版本" class="c-btn" id="J-addVesionBtn"/></div>
+   </form>
+</div>
+
+<script type="text/javascript">
+KISSY.use("event,node,resizable,dd,dd/plugin/proxy", function (S, Event, Node,Resizable,DD,Proxy) {
+    var $ = S.all;
+    $("#J-addLink").on("click", function (e) {
+        e.preventDefault();
+
+       alert("Ff");
+    });
+
+
+
+
+
+
+
+    var DDM = DD.DDM,
+            DraggableDelegate = DD.DraggableDelegate,
+            DroppableDelegate = DD.DroppableDelegate,
+            Draggable = DD.Draggable,
+            Droppable = DD.Droppable;
+
+    /**
+     * 拖放排序
+     */
+    S.ready(function () {
+        var r = new Resizable({
+            node:".hotspot",
+            // 指定可拖动的位置
+            handlers:["b","t","r","l","tr","tl","br","bl"],
+
+            // 可选, 设置最小/最大 宽高
+            minHeight:50,
+            minWidth:50,
+            maxHeight:278,
+            maxWidth:180
+        });
+
+        var dragDelegate = new DraggableDelegate({
+            container: "#j",
+            handlers: ['.hotspot'],
+            selector: '.hotspot',
+            move: true
+        });
+
+        var dropDelegate = new DroppableDelegate({
+            container: "#j",
+            selector: '.hotspot'
+        });
+
+        /*dragDelegate.on("dragover", function (ev) {
+            var drag = ev.drag;
+            var drop = ev.drop;
+            var dragNode = drag.get("dragNode"),
+                    dropNode = drop.get("node");
+            var middleDropX = (dropNode.offset().left * 2 + dropNode.width()) / 2;
+            if (ev.pageX > middleDropX) {
+                var next = dropNode.next();
+                if (next && next[0] == dragNode[0]) {
+
+                } else {
+                    dragNode.insertAfter(dropNode);
+                }
+            } else {
+                var prev = dropNode.prev();
+                if (prev && prev[0] == dragNode[0]) {
+                } else {
+                    dragNode.insertBefore(dropNode);
+                }
+            }
+        });*/
+
+       /* var container = S.one("#container2");
+        var id = 4;
+        container.unselectable();
+
+        var newTpl= S.one('#newTpl').html();
+        S.one("#add").on("click", function () {
+            new Node(S.substitute(newTpl,{
+                id:(id++)
+            })).appendTo(container).unselectable();
+        });*/
+
+
+    });
+
+});
+</script>

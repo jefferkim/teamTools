@@ -323,7 +323,7 @@ a {
 
 
 .upload_box {
-    width: 617px;
+    width: 1200px;
 }
 
 .upload_main {
@@ -360,7 +360,7 @@ a {
 }
 
 .upload_append_list {
-    height: 200px;
+    height: 400px;
     padding: 0 1em;
     float: left;
     position: relative;
@@ -368,6 +368,8 @@ a {
 
 .upload_append_list .pic {
     padding:5px;
+    height:272px;
+    overflow:hidden;
     display:inline-block;
     position: relative;
 }
@@ -390,8 +392,7 @@ a {
 }
 
 .upload_image {
-    max-height: 150px;
-    max-width:300px;
+    width:180px;
 }
 
 .upload_submit {
@@ -430,8 +431,7 @@ a {
 
 }
 .upload_inf .preview-pic img{
-    max-width:300px;
-    max-height:150px;
+    width:180px;
 }
 .upload_inf .preview-pic .J-addToMain{
     display:block;

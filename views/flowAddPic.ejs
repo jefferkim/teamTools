@@ -1,0 +1,168 @@
+<h2 class="fun-title">添加UI界面</h2>
+
+<div class="c-form">
+   <form action="/version/new" method="post" id="J-versionAddFrom">
+
+        <div class="pic-section">
+
+                <div class="upload_box">
+                    <div class="upload_main">
+                        <div class="upload_choose">
+                            <input id="fileImage" type="file" size="30" name="fileselect[]" multiple="" class="">
+                            <span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
+                        </div>
+                        <div id="preview" class="upload_preview"></div>
+
+                        <div class="upload_submit">
+                            <input type="hidden" name="version[pid]" id="J-hiddenPid" value=""/>
+                            <input type="hidden" name="projectDir" id="J-hiddenPdir" value=""/>
+                            <input type="hidden" name="version[vid]" id="J-hiddenVid" value=""/>
+                            <div class="submit-wrap"><button type="button" id="fileSubmit" class="upload_submit_btn" style="display: none;">确认上传图片</button></div>
+                        </div>
+                    </div>
+
+                    <div id="uploadInf" class="upload_inf"></div>
+                </div>
+
+        </div>
+    <div class="mt20"><input type="submit" value="添加版本" class="c-btn" id="J-addVesionBtn"/></div>
+   </form>
+</div>
+
+
+<script type="text/javascript" src="/javascripts/fileUpload.js"></script>
+<script>
+    KISSY.use("event,node,overlay,component/plugin/drag", function (S, Event, Node, O) {
+    var $ = S.all;
+    var params = {
+        fileInput: $("#fileImage")[0],
+        dragDrop: $("#fileDragArea")[0],
+        upButton: $("#fileSubmit")[0],
+        url:'/version/uploadFile',
+        filter: function(files) {
+            var arrFiles = [];
+            for (var i = 0, file; file = files[i]; i++) {
+                if (file.type.indexOf("image") == 0 || (!file.type && /\.(?:jpg|png|gif)$/.test(file.name) /* for IE10 */)) {
+                    if (file.size >= 51200000) {
+                        alert('您这张"'+ file.name +'"图片大小过大，应小于50000k');
+                    } else {
+                        arrFiles.push(file);
+                    }
+                } else {
+                    alert('文件"' + file.name + '"不是图片。');
+                }
+            }
+            return arrFiles;
+        },
+        onSelect: function(files) {
+            var html = '', i = 0;
+            $("#preview").html('<div class="upload_loading"></div>');
+            var funAppendImage = function() {
+                file = files[i];
+                if (file) {
+                    var reader = new FileReader()
+                    reader.onload = function(e) {
+                        html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong title="点击修改名称">' + file.name + '</strong></p>'+
+                                '<div class="pic"><img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /><a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a></div>'+
+                                '<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
+                                '</div>';
+
+                        i++;
+                        funAppendImage();
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    $("#preview").html(html);
+                    if (html) {
+                        //删除方法
+                        $(".upload_delete").on("click",function() {
+                            versionUpload.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
+                            return false;
+                        });
+                        //提交按钮显示
+                        $("#fileSubmit").show();
+                    } else {
+                        //提交按钮隐藏
+                        $("#fileSubmit").hide();
+                    }
+                }
+            };
+            funAppendImage();
+        },
+        onDelete: function(file) {
+            $("#uploadList_" + file.index).fadeOut();
+        },
+        onDragOver: function() {
+            $(this).addClass("upload_drag_hover");
+        },
+        onDragLeave: function() {
+            $(this).removeClass("upload_drag_hover");
+        },
+        onProgress: function(file, loaded, total) {
+            var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+            eleProgress.show().html(percent);
+        },
+        onSuccess: function(file, response) {
+            var imgObj = JSON.parse(response).info;
+            $("#uploadInf").append('<div class="preview-pic"><img src="'+"/images/"+imgObj.projectDir+"/"+imgObj.versionDir+"/"+imgObj.path + '"/><a herf="#" class="J-addToMain" data-picId="'+imgObj._id+'" data-path="'+imgObj.path+'">设为封面</a></div>');
+        },
+        onFailure: function(file) {
+            $("#uploadInf").append("<p>图片" + file.name + "上传失败！</p>");
+            $("#uploadImage_" + file.index).css("opacity", 0.2);
+        },
+        onComplete: function() {
+            //提交按钮隐藏
+            $("#fileSubmit").hide();
+            //file控件value置空
+            $("#fileImage").val("");
+            $("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+        }
+    };
+
+
+    versionUpload = S.merge(versionPic, params);
+    versionUpload.init();
+
+    $("#uploadInf").on("click",".J-addToMain",function(e){
+        e.preventDefault();
+        var target = e.currentTarget;
+        if(!$(target).hasClass("isMain")){
+            $.ajax({
+                url:"/version/setMainPic",
+                method:"post",
+                data:{picId:$(target).attr("data-picId"),"versionId":$("#J-hiddenVid").val(),"path":$(target).attr("data-path"),"pid":$("#J-hiddenPid").val()},
+                success:function(res){
+                    console.log(res);
+                    if(res.success){
+                        $(".J-addToMain").removeClass("isMain").text("设为封面");
+                        $(target).addClass("isMain").text("主封面");
+                    }
+                }
+            })
+        }
+    })
+
+    $("#preview").on("click",".upload_append_list strong",function(e){
+        e.preventDefault();
+        var target = e.currentTarget;
+        if($(target).hasClass("inputing")) return;
+        var path = $(target).text().split(".");
+        var pathName = path[0];//粗糙
+        var type = path[1];
+        $(target).addClass("inputing");
+        $(target).html('<input type="text" value="'+pathName+'"/>');
+
+    });
+
+    $("#J-addVesionBtn").on("click",function(e){
+        e.preventDefault();
+        if($("#J-versionName").val()=="" && $("#J-desc").val()==""){
+            alert("请输入版本名称和版本描述");
+            return;
+        }else{
+           $("#J-versionAddFrom").submit();
+        }
+    });
+    });
+
+</script>
