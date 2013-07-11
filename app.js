@@ -14,9 +14,15 @@ var flow = require('./routes/flow');
 var version = require('./routes/version');
 var admin = require('./routes/admin');
 
+var login = require('./routes/login');
+
+
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
+
+
+
 
 
 /**
@@ -56,18 +62,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-/*
-* Auth 认证，
-* 先暂时用硬编码
-* */
-var user             = 'jinjianfeng';
-var pass             = '7418529630';
-var basicAuthMessage = 'etao tools , need password';
-var auth = express.basicAuth(function(username, password) {
-    return (username === user && password === pass);
-}, basicAuthMessage);
-
 //routes
 //project
 app.get('/', project.showAll);
@@ -75,6 +69,9 @@ app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
 app.post('/project/querySidebar',project.showSidebar);
 
+
+
+app.get('/login',login.login);
 
 //我的目录
 app.get('/my',my.myList);
@@ -102,7 +99,7 @@ app.post('/version/setMainPic',version.setMainPic);//设置封面
 app.get('/version/mobile/:vid',version.mobile);//手机端显示
 
 //admin
-app.get('/admin/projectadd',auth,admin.addProject); //项目只有管理员才能添加
+app.get('/admin/projectadd',admin.addProject); //项目只有管理员才能添加
 app.post('/admin/projectNew',admin.projectNew); //form post
 
 

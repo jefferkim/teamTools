@@ -9,6 +9,9 @@ var Project = require('../dao/Project');
 var Version = require('../dao/Version');
 var Picture = require('../dao/Picture');
 
+var http = require('http');
+
+
 
 exports.show = function (req, res) {
     var pid = req.params.pid;
@@ -20,9 +23,26 @@ exports.show = function (req, res) {
 };
 
 exports.showAll = function (req, res) {
+    /*http.get("http://api.yunpan.alibaba.com/oauth/access_token?", function(res) {
+      console.log("Got response: " + res.statusCode);
+    }).on('error', function(e) {
+      console.log("Got error: " + e.message);
+    });*/
+
+
+
+        
+
+
     Project.findAll(function (err, projects) {
         res.render('projectList', {title:'项目列表', project:{_id:"1", name:""}, projects:projects});
     });
+
+
+
+
+
+
 };
 
 exports.showSidebar = function(req, res){
