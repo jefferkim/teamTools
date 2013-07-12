@@ -1,26 +1,25 @@
-/*
- * 原型
- *
- * 
- */
 
 
 var Project = require('../dao/Project');
 var Version = require('../dao/Version');
 var Picture = require('../dao/Picture');
 
-var Util = require('../util/util');
+var http = require('http');
 
-exports.show = function (req, res) {
-    res.render("prototypeList", {title:"添加版本", project:{_id:"1", name:""}});
-};
+var Util = require('../util/util');
 
 exports.list = function (req, res) {
     var access_token = req.cookies.access_token;
+    var dirId = req.params.fid;
 
-    Util.urlReq('http://api.yunpan.alibaba.com/api/group/get',{
+    Util.urlReq('http://api.yunpan.alibaba.com/api/folder/list',{
         method:'POST',
         params:{
+            dirId:0,
+            path:"",
+           // pageSize:50,
+           // pageIndex:1,
+           // showImg:true,
             access_token:access_token
         }
 
@@ -30,6 +29,8 @@ exports.list = function (req, res) {
         if (!result.error) {
             console.log(result);
             res.render('prototypeList',{groups:result});
+        } else{
+            console.log('....');
         }
     })
 

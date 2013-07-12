@@ -113,6 +113,17 @@ body{
     </div>
 </div>-->
 
+
+<style>
+.group-list li{ height:25px;line-height:25px;}
+</style>
+<ul class="group-list">
+    <% groups.forEach( function ( group ){ %>
+            <li><a href="/file/<%= group.groupSpaceId %>"><%= group.ownerGroupName %></a></li>
+    <%})%>
+
+</ul>
+
 <script>
    /*KISSY.use("node,dd,dd/plugin/scroll,dd/plugin/proxy", function (S, Node, DD, Scroll, Proxy) {
 

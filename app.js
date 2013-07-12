@@ -17,6 +17,12 @@ var admin = require('./routes/admin');
 var login = require('./routes/login');
 
 
+var prototype = require('./routes/prototype');
+
+
+var dirs = require('./routes/dirs');
+
+
 var http = require('http');
 var path = require('path');
 var partials = require('express-partials');
@@ -47,6 +53,7 @@ app.set('view engine','ejs');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(partials());
+app.use(express.cookieParser());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
@@ -64,6 +71,9 @@ if ('development' == app.get('env')) {
 
 //routes
 //project
+
+
+
 app.get('/', project.showAll);
 app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
@@ -72,6 +82,15 @@ app.post('/project/querySidebar',project.showSidebar);
 
 
 app.get('/login',login.login);
+app.post('/login/validation',login.validation);
+
+
+
+app.get('/prototype',prototype.list);
+
+
+app.get('/file/:fid',dirs.list);
+
 
 //我的目录
 app.get('/my',my.myList);
