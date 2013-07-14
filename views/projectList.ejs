@@ -1,23 +1,21 @@
 <div class="lists projectList clearfix">
     <ul>
-
+        <%if(projects){%>
         <% projects.forEach( function ( project ){ %>
 
-
         <li>
-          <a href="/file/<%= project.id %>">
-           <div class="cover"><img src=""/></div>
-           <div class="desc">
-             <%= project.name%>
-             <%= new Date(project.modifyTime) %>
-           </div>
-          </a>
+            <a href="/file/<%= project.id %>">
+                <div class="cover"><img src=""/></div>
+                <div class="desc">
+                    <%= project.name%>
+                    <%= new Date(project.modifyTime) %>
+                </div>
+            </a>
         </li>
-
-
-
-
         <%})%>
+        <%}else{%>
+        <li>没东西</li>
+        <%}%>
 
     </ul>
 </div>

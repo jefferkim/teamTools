@@ -32,13 +32,13 @@ ul, ol {
     list-style: none;
 }
 
-a {
-    text-decoration: none;
+a:link,a:active,a:visited{
+
     cursor: pointer;
 }
 
 a:hover {
-
+    text-decoration: none;
 }
 
 sup {
@@ -228,6 +228,8 @@ a {
 }
 
 .content {
+    margin-right:-222px;
+    float:right;
     width: 100%;
     padding-bottom:50px;
     background: #fafafa;
@@ -235,7 +237,6 @@ a {
 
 .c {
     margin-right:220px;
-    padding-left: 20px;
 }
 
 .lists {

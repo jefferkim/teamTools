@@ -1,39 +1,43 @@
-KISSY.use("node,ajax", function (S, Node,ajax) {
-     var $ = S.all;
-
-     var selectedId = "";
-
-     $(".file").on("click",function(e){
-        e.preventDefault();
-        $(".file").removeClass("selected");
-        var currentTarget = e.currentTarget;
-
-        $(currentTarget).addClass("selected");
-        selectedId = $(currentTarget).attr("data-id");
-        console.log(selectedId);
-
-     });
+var S = KISSY;
+var $ = S.all;
 
 
+var selectedId = "";
+var selectObj = "";
+var access_token = S.Cookie.get("access_token");
 
-     $("#J-delete").on("click",function(e){
+
+$(".file").on("click", function (e) {
+    e.preventDefault();
+    $(".file").removeClass("selected");
+    var currentTarget = e.currentTarget;
+
+    $(currentTarget).addClass("selected");
+    selectObj = $(currentTarget);
+    selectedId = $(currentTarget).attr("data-id");
+
+});
 
 
-      //    var access_token = Cookie.get("access_token");
-      //    console.log(access_token);
-         e.preventDefault();
-         S.IO({
-                dataType:'jsonp',
-                url:"http://api.yunpan.alibaba.com/api/file/remove?direct=false&id="+selectedId+"&access_token="+, 
-                
-                jsonp:"jsoncallback",    
-                success:function (data) {
-                    console.log(data);
-                    
-                }
-          
-     })
 
-      })
+$("#J-delete").on("click", function (e) {
+    e.preventDefault();
+    S.IO({
+        url: "/file/delete",
+        data:{
+          "direct":false,
+          "fileId":selectedId
+        },
+        type:'post',
+        success: function (result) {
 
-  })
+            if(result.suc){
+                selectObj.remove();
+
+            }
+
+        }
+
+    })
+
+})

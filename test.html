@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>有爱，逛你喜欢</title>
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta content="no" name="apple-mobile-web-app-capable" />
+        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://img02.taobaocdn.com/tps/i2/T1gFwTXfddXXX1dP6j-57-57.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://img04.taobaocdn.com/tps/i4/T1BO.QXj8fXXa.JOZB-114-114.png">
+        <script type="text/javascript" src="http://a.tbcdn.cn/mw/app/youai/h5/v3/js/checkClienturl.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/mixsln.css" />
+		<link rel="stylesheet/less" type="text/css" href="less/youai-mix.less" />
+		<script src="js/vendor/less-debug.js" type="text/javascript"></script>
+	</head>
+    <body class="webapp" id="J-webapp" scroll="none">
+    <script type="text/javascript">
+        window.Youai || (Youai = {});
+        (function() {
+          Youai.imageFormat = ''
+          var image = new Image()
+          image.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
+          image.onload = function()  { Youai.imageFormat = '_.webp' }
+        })()
+    </script>
+    <div id="tbh5v0">
+        <div id="J_Container" class="container screen-wrap fullscreen">
+            <section id="J_Main" class="main">
+                <div id="J_scroller" class="viewport m-scroll">
+                    <header id="header" class="navibar">
+                        <ul>
+                            <li class="title">Title</li>
+                            <li class="home-back"><button class="home"></button></li>
+                            <li class="g-nav"><button id="J-menu" class="menu"><em></em></button></li>
+                        </ul>
+                    </header>
+                    <!--导航部分 -->
+                    <div id="J-menuList" class="menu-list">
+                        <div class="sub-box">
+                            <!--运营自定义导航 列表-->
+                            <ul>
+                             <li><a href="#!list/0/p1" data-pds="youai_global_mostlove" class="most-love"><span>最有爱</span></a></li>
+                             <li><a href="#!list/687/p1">衣服</a></li>
+                             <li><a href="#!list/6/p1">鞋子</a></li>
+                             <li><a href="#!list/7/p1">包包</a></li>
+                             <li><a href="#!list/9/p1">配饰</a></li>
+                             <li><a href="#!list/14/p1">家居</a></li>
+                            </ul>
+                            <!--分割线-->
+                            <div class="separate-line"></div>
+                            <!--默认导航列表-->
+                            <ul>
+                                <li><a href="#!home" data-pds="navigation_gotohome#h#youai">首页</a></li>
+                                <li><a href="#!stroll/p1" data-pds="navigation_gotostroll#h#youai">逛逛</a></li>
+                                <li><a href="#!category/v" data-pds="navigation_gotoclass#h#youai">分类</a></li>
+                                <li><a href="#!style" data-pds="navigation_gotostyle#h#youai">风格</a></li>
+                                <li><a href="#!albums/recommend/p1" data-pds="navigation_gotoalbum#h#youai">专辑</a></li>
+                                <li class="my-like"><a href="#like/currentUser/p1" data-pds="navigation_gotomylove#h#youai"><em></em>喜欢</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <section id="content" class="content">
+                        <div>
+                            <div class="active"></div>
+                            <div class="inactive"></div>
+                        </div>
+                    </section>
+                    <footer id="footer" class="toolbar footer"></footer>
+                </div>
+            </section>
+
+            <input type="hidden" id="J_app_key" value="12574478" />
+        </div>
+    </div>
+
+    <div class="mask" id="J-mask"></div>
+    <div id="J-popWrap"></div>
+
+    <!--<script type="text/javascript" src="http://localhost:9292/youai-mix.js"></script>-->
+    <script type="text/javascript" src="http://10.13.115.196:9292/youai-mix.js"></script>
+    <!--<script type="text/javascript" src="./youai-mix.js"></script>-->
+    <script type="text/javascript">
+        //有爱全局变量配置,对应的功能页面
+        var YA_GLOBAL = {
+            "itemId":0,//详情：(可能需要，或者从hash中获取)
+            "albumId":0,//专辑：同上
+            "isvCode":0//专辑：地址中未涉及
+        };
+        $(function() {
+            Youai.init();
+        });
+    </script>
+    </body>
+</html>

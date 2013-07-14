@@ -279,3 +279,76 @@
     opacity: 0.8;
     filter: alpha(opacity = 80);
 }
+.func-bar {
+    position:relative;
+    width: 100%;
+    height: 60px;
+    background: #00c091;
+
+}
+
+.func-bar .ex-btn {
+    position:absolute;
+    color:#fff;
+    width: 60px;
+    height: 60px;
+    background: #16a985;
+}
+
+.func-bar .back {
+    left:0;
+    top:0;
+}
+
+.func-bar .complete{
+    font-size:15px;
+    color:#fff;
+    line-height:60px;
+    text-align:center;
+    right:0;
+    top:0;
+}
+.func-list{
+    width:450px;
+    margin:0 auto;
+}
+.func-list li {
+    float: left;
+    padding-left:40px;
+    width: 70px;
+    height: 32px;
+    line-height:32px;
+    font-size:15px;
+    color:#fff;
+}
+
+.func-list .add{
+    background: url("../images/f1.png") no-repeat scroll 0 0;
+
+}
+.func-list .replace{
+    background:url("../images/f2.png") no-repeat scroll 0 0;
+}
+.func-list .delete{
+    background:url("../images/f3.png") no-repeat scroll 0 0;
+}
+.func-list .preview{
+    background:url("../images/f4.png") no-repeat scroll 0 0;
+}
+
+.effect{
+    width:100%;
+    height:50px;
+    border-bottom:1px solid #d5d5d5;
+    box-shadow:0 1px 1px #ededed;
+}
+.effect .effect-list{
+    margin:0 atuo;
+}
+.effect-list li {
+    float: left;
+    margin:0 20px;
+    width: 28px;
+    height: 28px;
+
+}

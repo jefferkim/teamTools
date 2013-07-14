@@ -89,8 +89,26 @@ app.post('/project/querySidebar',project.showSidebar);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 app.get('/login',login.login);
 app.post('/login/validation',login.validation);
+
+
+
+
+
+
+
 
 
 
@@ -98,6 +116,8 @@ app.get('/prototype',prototype.list);
 
 
 app.get('/file/:fid',dirs.list);
+
+app.post('/file/delete',dirs.delete);
 
 
 //我的目录
