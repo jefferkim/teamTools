@@ -50,6 +50,12 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine','ejs');
+
+
+
+//app.set('client_id','7906391197878369133');
+//app.set('client_secret','25827169871c447b905e820ed62f4374');
+
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(partials());
@@ -68,6 +74,8 @@ app.set('env', 'production');//set production env
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+
 
 //routes
 //project

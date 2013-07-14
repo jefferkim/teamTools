@@ -17,8 +17,8 @@ exports.show = function (req, res) {
 
 exports.list = function (req, res) {
     var access_token = req.cookies.access_token;
-
-    Util.urlReq('http://api.yunpan.alibaba.com/api/group/get',{
+/*
+    Util.urlReq('http://10.33.33.197:8080/api/group/get',{
         method:'POST',
         params:{
             access_token:access_token
@@ -27,6 +27,30 @@ exports.list = function (req, res) {
     },function (body, res1) {
 
         var result = JSON.parse(body);
+        console.log(result);
+        if (!result.error) {
+            console.log(result);
+            res.render('prototypeList',{groups:result});
+        }
+    })*/
+
+
+    Util.urlReq('/api/folder/sortList',{
+        method:'POST',
+        params:{
+            pageSize:50,
+            pageIndex:1,
+            showImg:false,
+            type:0,
+            order:"desc",
+            sort:'gmt_modified',
+            access_token:access_token
+        }
+
+    },function (body, res1) {
+
+        var result = JSON.parse(body);
+        console.log(result);
         if (!result.error) {
             console.log(result);
             res.render('prototypeList',{groups:result});

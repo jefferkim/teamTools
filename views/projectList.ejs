@@ -2,7 +2,21 @@
     <ul>
 
         <% projects.forEach( function ( project ){ %>
-        <li><a href="/project/<%= project._id %>"><img src="/images/_projectPic/<%= project.projectPath%>" alt=""/></a><span class="t"><%= project.name%></span></li>
+
+
+        <li>
+          <a href="/file/<%= project.id %>">
+           <div class="cover"><img src=""/></div>
+           <div class="desc">
+             <%= project.name%>
+             <%= new Date(project.modifyTime) %>
+           </div>
+          </a>
+        </li>
+
+
+
+
         <%})%>
 
     </ul>

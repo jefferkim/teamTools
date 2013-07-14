@@ -25,15 +25,18 @@ exports.urlReq = function (reqUrl, options, cb) {
     }
 
     // parse url to chunks
-    reqUrl = url.parse(reqUrl);
+
+    //reqUrl = url.parse(reqUrl);
 
     // http.request settings
     var settings = {
-        host: reqUrl.hostname,
+       // host: "10.232.68.82",
+        host: "api.yunpan.alibaba.com",
         port: reqUrl.port || 80,
-        path: reqUrl.pathname,
+        path: reqUrl,
         headers: options.headers || {},
         method: options.method || 'GET'
+
     };
 
     // if there are params:
@@ -44,7 +47,7 @@ exports.urlReq = function (reqUrl, options, cb) {
         settings.headers['Content-Length'] = options.params.length;
     }
 
-    console.log(settings);
+  //  console.log(settings);
     // MAKE THE REQUEST
     var req = http.request(settings);
 

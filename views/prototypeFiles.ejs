@@ -1,0 +1,69 @@
+<style>
+   .func-list li{
+   float:left;
+   width:100px;
+   height:20px;
+   background:yellow;
+   }
+
+   .effect-list li{
+     float:left;
+     width:100px;
+     height:20px;
+     background:red;
+   }
+
+</style>
+<div class="func-bar">
+
+  <h2>表哥计划</h2>
+  <ul class="func-list">
+     <li>继续添加</li>
+
+     <li>替换</li>
+     <li id="J-delete">删除</li>
+
+
+     <li>预览</li>
+
+  </ul>
+
+
+
+
+
+</div>
+<div class="effect">
+   <ul class="effect-list">
+       <li>渐隐</li>
+
+       <li>向左</li>
+
+       <li>向右</li>
+
+   </ul>
+</div>
+
+
+<ul class="prototype-list clearfix">
+
+
+    <% files.forEach( function ( file ){ %>
+            <li class="file" data-id = <%= file.id%>>
+
+            <a href="#">
+              <img src="http://yunpan.alibaba-inc.com/GetPhotoTag.do?fileId=<%= file.id%>"/>
+            </a>
+            <span class="name"><%= file.fileName%></span>
+            </li>
+
+    <%})%>
+
+</ul>
+
+
+
+<script src="/javascripts/prototype1.js">
+
+
+</script>

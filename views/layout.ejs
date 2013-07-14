@@ -9,24 +9,35 @@
 </head>
 <body>
 <div class="header-bar">
-    <h1><a href="/">秘密的项目</a></h1>
-    
-    <ul class="menu-list">
-        <li class="msg">消息</li>
-        <li class="usr">梦雅</li>
-    </ul>
+    <h1 class="clearfix"><a href="/" id="logo">手机keynote</a></h1>
 
 </div>
 
 
 
 <div class="main clearfix">
+
+   <div class="sidebar">
+           <div class="user-info">
+              <div class="avatar">
+                   <img src="images/a.png"/>
+              </div>
+              <div class="desc">
+                 <span class="username">sss</span>
+              </div>
+           </div>
+           <div class="add-btn">
+              <a href="#" class="add-btn"></a>
+           </div>
+           <div class="sidebar-content">
+               <ul id="J-sidebar" class="side-list">
+                   <li><a href="#">变形金刚</a></li>
+               </ul>
+           </div>
+       </div>
     
     <div class="content">
         <div class="c">
-            <div class="breadcrumb">
-                <a href="/">您的项目</a><span>project.name</span>
-            </div>
 
             <%- body%>
         </div>

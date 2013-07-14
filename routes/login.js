@@ -23,15 +23,17 @@ exports.validation = function (req, res) {
     var password = req.param("password");
     var appKey = 'uxKeynote';
 
-    Util.urlReq('http://api.yunpan.alibaba.com/oauth/access_token', {
+    Util.urlReq('/oauth/access_token', {
         method: 'POST',
         params: {
             grant_type: "password",
             site: "BUC",
             username: userName,
             password: password,
-            client_id: "106362801917443616",
-            client_secret: "bccdbbe3145941bfbe947fdd8668a668"
+           // client_id: '7906391197878369133',
+           // client_secret: '25827169871c447b905e820ed62f4374'
+            client_id: '106362801917443616',
+            client_secret: 'bccdbbe3145941bfbe947fdd8668a668'
         }
     }, function (body) {
 
