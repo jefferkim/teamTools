@@ -309,8 +309,15 @@ a {
 }
 .prototype-list li.selected{
 
-    border:1px solid red;
+
 }
+
+.prototype-list li .pic-page-context{
+    display:block;
+    overflow:hidden;
+    position:relative;
+}
+
 
 .prototype-list li a{
     display:table;
@@ -321,12 +328,27 @@ a {
 
 
 }
+.prototype-list li.selected a{
+    border:1px solid #00c091;
+}
 .prototype-list li a img{
 
     display: table-cell;
     width:110px;
     vertical-align: middle;
 }
+
+
+
+
+
+
+
+.prototype-list li .hotspot{
+    position:absolute;
+}
+
+
 
 
 .version-wrap{

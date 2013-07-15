@@ -3,94 +3,548 @@
 	<head>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <title>有爱，逛你喜欢</title>
-        <meta name="apple-touch-fullscreen" content="yes" />
-        <meta content="no" name="apple-mobile-web-app-capable" />
-        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="http://img02.taobaocdn.com/tps/i2/T1gFwTXfddXXX1dP6j-57-57.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://img04.taobaocdn.com/tps/i4/T1BO.QXj8fXXa.JOZB-114-114.png">
-        <script type="text/javascript" src="http://a.tbcdn.cn/mw/app/youai/h5/v3/js/checkClienturl.min.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="css/mixsln.css" />
-		<link rel="stylesheet/less" type="text/css" href="less/youai-mix.less" />
-		<script src="js/vendor/less-debug.js" type="text/javascript"></script>
+		<script type="text/javascript" src="http://g.tbcdn.cn/kissy/k/1.3.0/kissy-min.js"></script>
+        <style>
+
+            .pic-wrap{
+                width:200px;
+                height:300px;
+                background:red;
+            }
+
+            .container {
+                height: 380px;
+                padding: 10px;
+                position: relative;
+            }
+
+            .component {
+                position:relative;
+                width: 90px;
+                height: 90px;
+                display: inline-block;
+                *display: inline;
+                *zoom: 1;
+                overflow: hidden;
+                border:1px solid #efefef;
+                z-index:1;
+            }
+
+            .cheader {
+                width:90px;
+                height:90px;
+            }
+
+
+            .box .ks-dd{
+                background:white;
+            }
+            .box .ks-dd-drag-over {
+                background: #FD9F99;
+            }
+
+            .box .ks-dd-drop-over {
+                background: #FD9F99;
+            }
+
+            #J-pageView .component .cheader {
+                cursor: move;
+            }
+
+
+
+
+            .ks-resizable-handler {
+                position: absolute;
+                overflow: hidden;
+                font-size: 0;
+                line-height: 0;
+                z-index: 10;
+
+                background:#ffff00;
+            }
+            .ks-resizable-handler-t,.ks-resizable-handler-b,  .ks-resizable-handler-r, .ks-resizable-handler-l {
+                opacity: 0.6;
+                filter: alpha(opacity = 60);
+                background-color: #F19EC2;
+            }
+            .ks-resizable-handler-t,.ks-resizable-handler-b {
+                left: 0;
+                height: 5px;
+                width: 100%;
+                cursor: n-resize;
+            }
+            .ks-resizable-handler-b {
+                bottom: 0;
+            }
+
+            .ks-resizable-handler-t {
+                top: 0;
+            }
+            .ks-resizable-handler-r, .ks-resizable-handler-l {
+                top: 0;
+                height: 100%;
+                -height: expression(this.parentNode.offsetHeight);
+                width: 5px;
+                cursor: e-resize;
+            }
+            .ks-resizable-handler-l {
+                left: 0;
+            }
+
+            .ks-resizable-handler-r {
+                right: 0;
+            }
+
+            .ks-resizable-handler-bl, .ks-resizable-handler-br, .ks-resizable-handler-tl, .ks-resizable-handler-tr {
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                border: 1px solid #535353;
+                background-color: #E4007F;
+                z-index: 2;
+            }
+            .ks-resizable-handler-bl {
+                left: -3px;
+                bottom: -3px;
+                cursor: sw-resize;
+            }
+
+            .ks-resizable-handler-br {
+                right: -3px;
+                bottom: -3px;
+                cursor: nw-resize;
+            }
+
+            .ks-resizable-handler-tl {
+                left: -3px;
+                top: -3px;
+                cursor: nw-resize;
+            }
+
+            .ks-resizable-handler-tr {
+                right: -3px;
+                top: -3px;
+                cursor: sw-resize;
+            }
+
+            .select-box {
+                position: relative;
+                width: 300px;
+                height: 150px;
+                border: 1px solid gray;
+                background: white;
+                cursor: auto;
+            }
+
+            .select-box .content {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                opacity: 0.8;
+                filter: alpha(opacity = 80);
+            }
+
+
+        </style>
 	</head>
-    <body class="webapp" id="J-webapp" scroll="none">
-    <script type="text/javascript">
-        window.Youai || (Youai = {});
-        (function() {
-          Youai.imageFormat = ''
-          var image = new Image()
-          image.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
-          image.onload = function()  { Youai.imageFormat = '_.webp' }
-        })()
-    </script>
-    <div id="tbh5v0">
-        <div id="J_Container" class="container screen-wrap fullscreen">
-            <section id="J_Main" class="main">
-                <div id="J_scroller" class="viewport m-scroll">
-                    <header id="header" class="navibar">
-                        <ul>
-                            <li class="title">Title</li>
-                            <li class="home-back"><button class="home"></button></li>
-                            <li class="g-nav"><button id="J-menu" class="menu"><em></em></button></li>
-                        </ul>
-                    </header>
-                    <!--导航部分 -->
-                    <div id="J-menuList" class="menu-list">
-                        <div class="sub-box">
-                            <!--运营自定义导航 列表-->
-                            <ul>
-                             <li><a href="#!list/0/p1" data-pds="youai_global_mostlove" class="most-love"><span>最有爱</span></a></li>
-                             <li><a href="#!list/687/p1">衣服</a></li>
-                             <li><a href="#!list/6/p1">鞋子</a></li>
-                             <li><a href="#!list/7/p1">包包</a></li>
-                             <li><a href="#!list/9/p1">配饰</a></li>
-                             <li><a href="#!list/14/p1">家居</a></li>
-                            </ul>
-                            <!--分割线-->
-                            <div class="separate-line"></div>
-                            <!--默认导航列表-->
-                            <ul>
-                                <li><a href="#!home" data-pds="navigation_gotohome#h#youai">首页</a></li>
-                                <li><a href="#!stroll/p1" data-pds="navigation_gotostroll#h#youai">逛逛</a></li>
-                                <li><a href="#!category/v" data-pds="navigation_gotoclass#h#youai">分类</a></li>
-                                <li><a href="#!style" data-pds="navigation_gotostyle#h#youai">风格</a></li>
-                                <li><a href="#!albums/recommend/p1" data-pds="navigation_gotoalbum#h#youai">专辑</a></li>
-                                <li class="my-like"><a href="#like/currentUser/p1" data-pds="navigation_gotomylove#h#youai"><em></em>喜欢</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <section id="content" class="content">
-                        <div>
-                            <div class="active"></div>
-                            <div class="inactive"></div>
-                        </div>
-                    </section>
-                    <footer id="footer" class="toolbar footer"></footer>
-                </div>
-            </section>
+    <body>
 
-            <input type="hidden" id="J_app_key" value="12574478" />
-        </div>
-    </div>
 
-    <div class="mask" id="J-mask"></div>
-    <div id="J-popWrap"></div>
 
-    <!--<script type="text/javascript" src="http://localhost:9292/youai-mix.js"></script>-->
-    <script type="text/javascript" src="http://10.13.115.196:9292/youai-mix.js"></script>
-    <!--<script type="text/javascript" src="./youai-mix.js"></script>-->
-    <script type="text/javascript">
-        //有爱全局变量配置,对应的功能页面
-        var YA_GLOBAL = {
-            "itemId":0,//详情：(可能需要，或者从hash中获取)
-            "albumId":0,//专辑：同上
-            "isvCode":0//专辑：地址中未涉及
-        };
-        $(function() {
-            Youai.init();
+         <div class="" id="J-contextMenuItems">
+             <ul>
+                 <li><a href="#" id="J-linkTo">加热点</a></li>
+                 <li><a href="#" id="J-jump">跳转热点</a></li>
+                 <li><a href="#" id="J-deleteBlock">删除</a></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+             </ul>
+         </div>
+         <div id="J-pageView" class="pic-wrap">
+             <img src=""/>
+
+         </div>
+
+    <script>
+
+    KISSY.add("resizable1", function (S, Node, RichBase, DD, undefined) {
+
+        var $ = Node.all,
+                i,
+                j,
+                Draggable = DD.Draggable,
+                CLS_PREFIX = "resizable-handler",
+                horizontal = ["l", "r"],
+                vertical = ["t", "b"],
+                ATTRS_ORDER = ["width", "height", "top", "left"],
+                hcNormal = {
+                    "t": function (minW, maxW, minH, maxH, ot, ol, ow, oh, diffT) {
+                        var h = getBoundValue(minH, maxH, oh - diffT),
+                                t = ot + oh - h;
+                        return [0, h, t, 0]
+                    },
+                    "b": function (minW, maxW, minH, maxH, ot, ol, ow, oh, diffT) {
+                        var h = getBoundValue(minH, maxH, oh + diffT);
+                        return [0, h, 0, 0];
+                    },
+                    "r": function (minW, maxW, minH, maxH, ot, ol, ow, oh, diffT, diffL) {
+                        var w = getBoundValue(minW, maxW, ow + diffL);
+                        return [w, 0, 0, 0];
+                    },
+                    "l": function (minW, maxW, minH, maxH, ot, ol, ow, oh, diffT, diffL) {
+                        var w = getBoundValue(minW, maxW, ow - diffL),
+                                l = ol + ow - w;
+                        return [w, 0, 0, l]
+                    }
+                };
+
+
+        for (i = 0; i < horizontal.length; i++) {
+            for (j = 0; j < vertical.length; j++) {
+                (function (h, v) {
+                    hcNormal[ h + v] = hcNormal[ v + h] = function () {
+                        return merge(hcNormal[h].apply(this, arguments),
+                                hcNormal[v].apply(this, arguments));
+                    };
+                })(horizontal[i], vertical[j]);
+            }
+        }
+        function merge(a1, a2) {
+            var a = [];
+            for (i = 0; i < a1.length; i++) {
+                a[i] = a1[i] || a2[i];
+            }
+            return a;
+        }
+
+        function getBoundValue(min, max, v) {
+            return Math.min(Math.max(min, v), max);
+        }
+
+        function createDD(self) {
+            var dds = self['dds'],
+                    node = self.get('node'),
+                    handlers = self.get('handlers'),
+                    prefixCls = self.get('prefixCls'),
+                    prefix = prefixCls + CLS_PREFIX;
+            for (i = 0; i < handlers.length; i++) {
+                var hc = handlers[i],
+                        el = $("<div class='" +
+                                prefix +
+                                " " + prefix +
+                                "-" + hc +
+                                "'></div>")
+                                .prependTo(node, undefined);
+                var  dd = dds[hc] = new Draggable({
+                            node: el,
+                            cursor: null
+                        });
+                (function (hc, dd) {
+                    dd.on("drag", function (ev) {
+                        alert("ff");
+                        var node = self.get('node'),
+                                dd = ev.target,
+                                ow = self._width,
+                                oh = self._height,
+                                minW = self.get("minWidth"),
+                                maxW = self.get("maxWidth"),
+                                minH = self.get("minHeight"),
+                                maxH = self.get("maxHeight"),
+                                diffT = ev.top - dd.get('startNodePos').top,
+                                diffL = ev.left - dd.get('startNodePos').left,
+                                ot = self._top,
+                                ol = self._left,
+                                pos = hcNormal[hc](minW, maxW, minH, maxH, ot, ol, ow, oh, diffT, diffL);
+
+                        for (i = 0; i < ATTRS_ORDER.length; i++) {
+                            if (pos[i]) {
+                                node.css(ATTRS_ORDER[i], pos[i]);
+                            }
+                        }
+                        self.fire('resize', {
+                            handler: hc,
+                            dd: dd
+                        });
+                    });
+                    dd.on("dragstart", function () {
+                        self._width = node.width();
+                        self._top = parseInt(node.css("top"));
+                        self._left = parseInt(node.css("left"));
+                        self._height = node.height();
+                        self.fire('resizeStart', {
+                            handler: hc,
+                            dd: dd
+                        });
+                    });
+                    dd.on("dragend", function () {
+                        self.fire('resizeEnd', {
+                            handler: hc,
+                            dd: dd
+                        });
+                    });
+                })(hc, dd);
+            }
+        }
+
+        /**
+         * Make a element resizable.
+         * @class KISSY.Resizable
+         * @extends KISSY.Base
+         */
+        var Resizable = RichBase.extend({
+
+            initializer: function () {
+                this['dds'] = {};
+            },
+
+            _onSetNode: function () {
+                createDD(this);
+            },
+
+            _onSetDisabled: function (v) {
+                var dds = this['dds'];
+                S.each(dds, function (d) {
+                    d.set('disabled', v);
+                });
+            },
+
+            destructor: function () {
+                var self = this,
+                        d,
+                        dds = self['dds'];
+                for (d in dds) {
+                    dds[d].destroy();
+                    dds[d].get("node").remove();
+                    delete dds[d];
+                }
+            }
+
+        }, {
+            ATTRS: {
+                /**
+                 * KISSY Node to be resizable.
+                 * Need to be positioned 'relative' or 'absolute'.
+                 * @cfg {KISSY.NodeList} node
+                 */
+                /**
+                 * @ignore
+                 */
+                node: {
+                    setter: function (v) {
+                        return $(v);
+                    }
+                },
+
+                /**
+                 * css prefix for handler elements.
+                 * @cfg {String} prefixCls
+                 */
+                /**
+                 * @ignore
+                 */
+                prefixCls: {
+                    value: 'ks-'
+                },
+
+                /**
+                 * Whether disable current resizable.
+                 * @cfg {Boolean} disabled
+                 */
+                /**
+                 * disable or enable current resizable.
+                 * @property disabled
+                 * @type {Boolean}
+                 */
+                /**
+                 * @ignore
+                 */
+                disabled: {},
+
+                /**
+                 * Minimum width can current node resize to.
+                 * @cfg {Number} minWidth
+                 */
+                /**
+                 * Minimum width can current node resize to.
+                 * @property minWidth
+                 * @type {Number}
+                 */
+                /**
+                 * @ignore
+                 */
+                minWidth: {
+                    value: 0
+                },
+                /**
+                 * Minimum height can current node resize to.
+                 * @cfg {Number} minHeight
+                 */
+                /**
+                 * Minimum height can current node resize to.
+                 * @property minHeight
+                 * @type {Number}
+                 */
+                /**
+                 * @ignore
+                 */
+                minHeight: {
+                    value: 0
+                },
+                /**
+                 * Maximum width can current node resize to.
+                 * @cfg {Number} maxWidth
+                 */
+                /**
+                 * Maximum width can current node resize to,
+                 * it can be changed after initialization,
+                 * for example: responsive design.
+                 * @property maxWidth
+                 * @type {Number}
+                 */
+                /**
+                 * @ignore
+                 */
+                maxWidth: {
+                    value: Number['MAX_VALUE']
+                },
+                /**
+                 * Maximum height can current node resize to.
+                 * @cfg {Number} maxHeight
+                 */
+                /**
+                 * Maximum height can current node resize to.
+                 * @property maxHeight
+                 * @type {Number}
+                 */
+                /**
+                 * @ignore
+                 */
+                maxHeight: {
+                    value: Number['MAX_VALUE']
+                },
+                /**
+                 * directions can current node resize to.
+                 * @cfg {KISSY.Resizable.Handler} handlers
+                 */
+                /**
+                 * @ignore
+                 */
+                handlers: {
+                    // t,tr,r,br,b,bl,l,tl
+                    value: []
+                }
+            }
         });
+
+        /**
+         * Resizable handlers type.
+         * @enum {String} KISSY.Resizable.Handler
+         */
+        Resizable.Handler = {
+            /**
+             * bottom
+             */
+            B: 'b',
+            /**
+             * top
+             */
+            T: 't',
+            /**
+             * left
+             */
+            L: 'l',
+            /**
+             * right
+             */
+            R: 'r',
+            /**
+             * bottom-left
+             */
+            BL: 'bl',
+            /**
+             * top-left
+             */
+            TL: 'tl',
+            /**
+             * bottom-right
+             */
+            BR: 'br',
+            /**
+             * top-right
+             */
+            TR: 'tr'
+        };
+
+        return Resizable;
+
+    }, { requires: ["node", "rich-base", "dd/base"] });
+
+
+        KISSY.use("node,dd,resizable1,dd/plugin/constrain", function (S, Node,DD,Resizable,Constrain) {
+            var DDM = DD.DDM,
+                    DraggableDelegate = DD.DraggableDelegate;
+
+
+            var p;
+            var constrain=new Constrain({
+                constrain: "#J-pageView"
+            });
+            /**
+             * 集中监听所有
+             */
+            DDM.on("dragstart", function(ev) {
+
+                var c = ev.drag;
+                p = c.get("dragNode").css("position");
+            });
+
+
+
+            S.one("#J-pageView").unselectable();
+
+            var delegate = new DraggableDelegate({
+                container:"#J-pageView",
+                handlers:['.cheader'],
+                selector:'.component',
+                move:true,
+                plugins:[
+                   constrain
+                ]
+            });
+
+
+
+
+
+            S.one("#J-linkTo").on("click", function(e) {
+                e.preventDefault();
+                new Node('<div class="box component"><div class="ks-resizable-handler ks-resizable-handler-bl"></div><div class="ks-resizable-handler ks-resizable-handler-br"></div><div class="ks-resizable-handler ks-resizable-handler-tl"></div><div class="ks-resizable-handler ks-resizable-handler-tr"></div><div class="box-hd cheader"></div></div>').prependTo("#J-pageView").unselectable();
+
+
+            });
+
+            var r = new Resizable({
+                node:"#J-pageView .component",
+                handlers:["tr","tl","br","bl"]
+            });
+
+
+
+
+
+            $("#J-jump").on("click",function(e){
+
+
+
+            })
+
+
+        });
+
     </script>
+
     </body>
 </html>
