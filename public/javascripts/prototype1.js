@@ -1,4 +1,4 @@
-KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
+KISSY.add('prototype', function (S, RichBase, DD, Resizeable) {
 
     var $ = S.all;
 
@@ -6,11 +6,11 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
 
         initializer: function () {
             this.access_token = S.Cookie.get("access_token");
-            this._E("body",this.events);
+            this._E("body", this.events);
 
         },
 
-        _E:function (el, events) {
+        _E: function (el, events) {
             var self = this;
             $(el).detach();
             for (var key in events) {
@@ -21,9 +21,9 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
                 if (selector === '') {
                     return;
                 } else {
-                    $(el).delegate( eventName,selector, (function(method) {
-                        return function(e) {
-                            method.call(self, e , this);
+                    $(el).delegate(eventName, selector, (function (method) {
+                        return function (e) {
+                            method.call(self, e, this);
                         }
                     })(method));
                 }
@@ -37,27 +37,27 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
             "click #J-delete": "deleteFile"
         },
 
-        addHotspot:function(e){
+
+        addHotspot: function (e) {
             e.preventDefault();
             var self = this;
-            if(self.drag){
-
+            if (self.drag) {
                 alert("当前热点区域未设置");
                 return;
             }
-            var currentId = "#J-page"+self.selectObj.attr("data-id");
-            console.log(self.get('dragNodeHtml'));
+
+            var currentId = "#J-page" + self.selectObj.attr("data-id");
+
             $(self.get('dragNodeHtml')).prependTo(currentId);
 
 
-
-            self.drag=new DD.Draggable({
-                node:currentId+" .hotspot",
-                cursor:'move',
-                move:true
+            self.drag = new DD.Draggable({
+                node: currentId + " .hotspot",
+                cursor: 'move',
+                move: true
             });
 
-            self.drag.on("dragend", function(ev) {
+            self.drag.on("dragend", function (ev) {
 
                 var c = ev.drag;
                 var node = c.get('dragNode');
@@ -65,18 +65,18 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
             });
 
 
-           // self.drag.plug(Proxy);
+            // self.drag.plug(Proxy);
 
             self.resize = new Resizeable({
-                node:currentId+" .hotspot",
-                handlers:["tr","tl","br","bl"],
-                minHeight:20,
-                minWidth:20
+                node: currentId + " .hotspot",
+                handlers: ["tr", "tl", "br", "bl"],
+                minHeight: 20,
+                minWidth: 20
             });
 
             console.log(self.drag);
 
-            self.resize.on("resizeEnd",function(ev){
+            self.resize.on("resizeEnd", function (ev) {
                 console.log(ev.dd);
 
                 self.addEffectShow();
@@ -84,8 +84,7 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
 
         },
 
-        addEffectShow:function(){
-
+        addEffectShow: function () {
 
 
         },
@@ -100,7 +99,7 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
             var offset = self.selectObj.offset();
             console.log(offset);
 
-            $("#J-contextMenuItems").offset({left:offset.left,top:offset.top-30}).show();
+            $("#J-contextMenuItems").offset({left: offset.left, top: offset.top - 30}).show();
 
         },
 
@@ -120,7 +119,7 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
                     if (result.suc) {
                         self.selectObj.remove();
 
-                    }else{
+                    } else {
 
                     }
                 }
@@ -130,7 +129,7 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
 
         destructor: function () {
             var self = this;
-                self.drag.destroy();
+            self.drag.destroy();
         }
 
     }, {
@@ -141,8 +140,8 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
                 }
             },
 
-            dragNodeHtml:{
-                value:'<div class="hotspot"></div>'
+            dragNodeHtml: {
+                value: '<div class="hotspot"></div>'
             },
 
             prefixCls: {
@@ -174,7 +173,7 @@ KISSY.add('prototype', function (S, RichBase, DD ,Resizeable) {
 
     return Prototype;
 
-}, {requires: [ "rich-base","dd","resizable"] });
+}, {requires: [ "rich-base", "dd", "resizable"] });
 
 
 

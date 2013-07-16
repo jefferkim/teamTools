@@ -46,6 +46,15 @@ db.once('open', function callback () {
 
 var app = express();
 
+
+app.locals({
+    getDate  : function(date) {
+        var d=new Date(date);
+
+        return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    }
+});
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');

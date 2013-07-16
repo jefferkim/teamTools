@@ -4,6 +4,10 @@
     left: -9999px;
     top: -9999px;
     outline: none;
+
+
+
+    background:#f4f4f4;
 }
 
 .ks-overlay-hidden {
@@ -15,6 +19,7 @@
 }
 
 .ks-overlay-shown {
+    z-index:999;
     visibility: visible;
 }
 
@@ -29,15 +34,23 @@
 
 .ks-dialog .ks-stdmod-header {
 
+    display: none;
     border-bottom: 1px solid #ACB4BE;
     font-size: 14px;
     font-weight: bold;
     height: 30px;
     line-height: 30px;
     padding: 0 0 0 18px;
+
+
 }
 
+
+
+
 .ks-ext-close {
+    display:none;
+
     height: 18px;
     width: 18px;
     border: 1px solid transparent;
@@ -70,8 +83,8 @@
 
 .ks-ext-mask {
     background-color: #000;
-    opacity: 0.3;
-    filter: alpha(opacity = 15);
+    opacity: 0.7;
+    filter: alpha(opacity = 30);
 }
 
 .ks-ext-loading {

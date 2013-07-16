@@ -1,4 +1,8 @@
 
+function getDate(date){
+    var d = new Date(date);
+    return d.getYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+}
 function previewQR(width){
         $(".J-viewQR").on("mouseover mouseout",function(e){
             e.preventDefault();

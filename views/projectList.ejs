@@ -1,16 +1,24 @@
 <div class="lists projectList clearfix">
-    <ul>
+
+    <ul id="projectList">
+
         <%if(projects){%>
         <% projects.forEach( function ( project ){ %>
 
-        <li>
-            <a href="/file/<%= project.id %>">
-                <div class="cover"><img src=""/></div>
-                <div class="desc">
-                    <%= project.name%>
-                    <%= new Date(project.modifyTime) %>
+        <li data-id="<%= project.id %>">
+
+            <div class="cover"><a href="/file/<%= project.id %>"><%if(project.cover){%><img src=""/><%}else{%><img
+                    src="http://img04.taobaocdn.com/tps/i4/T1XOdNFnXXXXauUnsh-210-210.png"/><%}%> </a></div>
+            <div class="desc clearfix">
+                <div class="info">
+                    <h3><%= project.name%></h3>
+                    <span class="time"><%= getDate(project.createTime) %></span>
                 </div>
-            </a>
+                <div class="handle">
+                    <a href="#" class="edit">修改</a>
+                    <a href="#" class="delete delete-project">删除</a>
+                </div>
+            </div>
         </li>
         <%})%>
         <%}else{%>
@@ -19,6 +27,13 @@
 
     </ul>
 </div>
+
+<script type="text/javascript" src="/javascripts/project.js"></script>
+<script>
+    KISSY.use("project",function(S,Project){
+        new Project();
+    })
+</script>
 
 
        

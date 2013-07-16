@@ -15,7 +15,7 @@ var Util = require('../util/util');
 
 exports.showAll = function (req, res) {
     var access_token = req.cookies.access_token;
-    Util.urlReq('http://api.yunpan.alibaba.com/api/folder/list', {
+    Util.urlReq('/api/folder/list', {
         method: 'POST',
         params: {
             dirId: 0,
