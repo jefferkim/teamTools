@@ -10,28 +10,44 @@ var Version = require('../dao/Version');
 var Picture = require('../dao/Picture');
 
 
-var Util = require('../util/util');
+var U = require('../util/util');
 
 
+//项目列表
 exports.showAll = function (req, res) {
-    var access_token = req.cookies.access_token;
-    Util.urlReq('/api/folder/list', {
+    var cookie = req.cookies;
+    U.urlReq('/api/folder/list', {
         method: 'POST',
         params: {
             dirId: 0,
             path: "",
-            access_token: access_token
+            access_token: cookie.access_token
         }
     }, function (projects) {
         var result = JSON.parse(projects);
         if (!result.error) {
-            console.log(result);
-            res.render('projectList', { projects: result.dirs});//这里只会读取文件夹，文件将不会作为展示类型
+            var projectList = result.dirs;
+
+            Project.findProjectsByUid(cookie.uid, function (err, doc) {
+                if(!err){
+
+               /// var mResult = U.mergeByKey(doc,projectList,'pid','id');
+             //   console.log(mResult);
+                    res.render('projectList', {projects:projectList,userInfo:{nick:cookie.uname,uid:cookie.uid},layout: 'homelayout'});//这里只会读取文件夹，文件将不会作为展示类型
+
+                }else{
+                    console.log("error");
+                }
+            });
+
         } else {
-            console.log('....');
+            res.redirect('/login');
         }
     })
 };
+
+
+
 
 
 exports.show = function (req, res) {
@@ -46,9 +62,9 @@ exports.show = function (req, res) {
 
 exports.showSidebar = function (req, res) {
 
-    Project.findAll(function (err, projects) {
+   /* Project.findAll(function (err, projects) {
         res.json(projects);
-    });
+    });*/
 }
 
 //修改项目，暂时不需要

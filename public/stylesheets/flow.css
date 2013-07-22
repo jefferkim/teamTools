@@ -457,6 +457,7 @@
 .context-menu-items{
     position:absolute;
     display:none;
+    background:red;
 }
 .context-menu-items li {
     float:left;
@@ -466,4 +467,24 @@
     margin:0 5px;
 }
 
+
+.qr-pop{
+    width:400px;
+    height:440px;
+    background:#fff;
+}
+.qr-pop #J-qrcode{
+    width:304px;
+    height:304px;
+    padding:48px;
+}
+.qr-pop .tips{
+    width:400px;
+    height:40px;
+    background:#19be93;
+    text-align:center;
+    line-height:40px;
+    color:#fff;
+    font-size:18px;
+}
 

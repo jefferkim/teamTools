@@ -1,0 +1,30 @@
+<div class="func-bar">
+    <a href="#" class="ex-btn back">返回</a>
+
+    <div class="func-c">
+        <h2><%= dirInfo.name%></h2>
+
+    </div>
+</div>
+
+
+<div class="edit-wrap">
+    <form action="/dir/edit" method="post" enctype="multipart/form-data">
+        <ul class="edit-dir clearfix">
+            <h2>修改模版</h2>
+            <li class="name"><input type="text" name="fileName" value="<%=dirInfo.name%>"/></li>
+
+            <li class="cover">
+                <div class="uneditable-input"></div>
+                <input type="file" name="file"/>
+                <span class="fileupload-new">添加</span>
+            </li>
+
+            <li class="submit"><input type="submit" class="btn submit-btn" value="上传"/></li>
+        </ul>
+        <input type="hidden" name="pid" value="<%= dirInfo.id%>"/>
+    </form>
+
+</div>
+
+

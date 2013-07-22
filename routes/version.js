@@ -113,25 +113,62 @@ exports.mkdirSync = function (url, mode, cb) {
 }
 
 
+
+exports.uploadCover = function(req, res){
+
+
+
+
+    var fileName = req.files.file.name;
+    var tmp_path = req.files.file.path;
+    var uid = req.cookies.uid;
+    var pid = req.param("pid");
+    // 指定文件上传后的目录 - 示例为"images"目录。
+    var target_path = './upload/' + fileName;
+
+
+   // console.log(pid);
+  ////  console.log(uid);
+   // console.log(fileName);
+
+    fs.rename(tmp_path, target_path, function(err) {
+        if (err) throw err;
+        fs.unlink(tmp_path, function() {
+            if (err) throw err;
+            Project.edit(uid,pid,fileName, function (err, doc) {
+                if(!err){
+                    res.json({"suc":true});
+                }
+            });
+        });
+    });
+
+}
+
+
+
 exports.uploadFile = function (req, res) {
+    console.log(req);
 
-    var fileName = req.param('fileName');//获取param中文件的信息
+    var fileName = req.param('file');//获取param中文件的信息
+
+    console.log(fileName);
+
     var fileSize = req.param('fileSize');
-    var uploadDir = req.param('pdir');
-    var pid = req.param('pid');//项目id
-    var versionDir = req.param('vid');
+   // var uploadDir = req.param('pdir');
+   // var pid = req.param('pid');//项目id
+   // var versionDir = req.param('vid');
 
 
-    var path = './public/images/' + uploadDir + '/' + versionDir;
+
+    var file = req.files;
+
+
+    var path = './public/images/';
 
     exports.mkdirSync(path, 0, function (e) {
-        /* if(e){
-         console.log('出错了');
-         }else{
 
-         }*/
-
-        var target_path = path + '/' + fileName;
+        var target_path = path+fileName ;
         var wOption = {flags:'w', encoding:null, mode:0777};
         var fileStream = fs.createWriteStream(target_path, wOption);
         req.pipe(fileStream, { end:false });

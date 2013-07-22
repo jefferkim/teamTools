@@ -11,12 +11,12 @@ exports.urlReq = function (reqUrl, options, cb) {
     }
 
 
-    var buildParams = function( params ) {
+    var buildParams = function (params) {
 
         var tmp = [];
-        if(typeof  params == "object"){
-            for(var p in params){
-               tmp.push(p+'='+params[p]);
+        if (typeof  params == "object") {
+            for (var p in params) {
+                tmp.push(p + '=' + params[p]);
 
             }
             return tmp.join("&");
@@ -30,7 +30,7 @@ exports.urlReq = function (reqUrl, options, cb) {
 
     // http.request settings
     var settings = {
-       // host: "10.232.68.82",
+        // host: "10.232.68.82",
         host: "api.yunpan.alibaba.com",
         port: reqUrl.port || 80,
         path: reqUrl,
@@ -41,13 +41,13 @@ exports.urlReq = function (reqUrl, options, cb) {
 
     // if there are params:
     if (options.params) {
-        settings.path = settings.path+"?"+buildParams(options.params);
+        settings.path = settings.path + "?" + buildParams(options.params);
         options.params = JSON.stringify(options.params);
         settings.headers['Content-Type'] = 'application/x-www-form-urlencoded';
         settings.headers['Content-Length'] = options.params.length;
     }
 
-  //  console.log(settings);
+    console.log(settings);
     // MAKE THE REQUEST
     var req = http.request(settings);
 
@@ -77,4 +77,36 @@ exports.urlReq = function (reqUrl, options, cb) {
 
     // end the request
     req.end();
+}
+
+
+exports.mergeObj = function (target, sources) {
+    sources.forEach(function (source) {
+        for (var prop in source) {
+            target[prop] = source[prop];
+        }
+    });
+}
+
+exports.mergeByKey = function (lo, target, k1, k2) {
+
+    lo.forEach(function (lo1) {
+        console.log("=-------");
+        console.log(lo1);
+        console.log("-------=");
+        target.forEach(function (target1) {
+            console.log(target1);
+            if (lo1[k1] == target1[k2]) {
+                for (var prop in lo1) {
+                  //  console.log(prop);
+                    if (prop != 'id') {
+                        target1[prop] = lo1[prop];
+                    }
+                }
+            }
+        });
+    });
+
+    return target;
+
 }

@@ -40,13 +40,25 @@ exports.validation = function (req, res) {
         console.log(body);
         var result = JSON.parse(body);
         if (!result.error) {
-            res.cookie('access_token', result.access_token);
-            res.cookie('refresh_token', result.refresh_token);
-            res.redirect('/');
 
-        } else {
+            Util.urlReq('/api/user/info',{
+                method:'POST',
+                params:{
+                    access_token:result.access_token
+                }
+            },function(u){
+                var userInfo = JSON.parse(u);
+                if(!userInfo.error){
+                    res.cookie('access_token', result.access_token);
+                    res.cookie('refresh_token', result.refresh_token);
+                    res.cookie('uname', userInfo.nick);
+                    res.cookie('uid', userInfo.userId);
+                    res.redirect('/');
+                }else{
+                    console.log("error......");
+                }
 
-
+            });
 
         }
     });

@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var _Project = new Schema({
-    name:String,
-    projectPath : String,
-    dirName:String//文件夹目录，存放版本
+    uid:String,
+    isShow:Boolean,
+    pid:String,
+    type : String,
+    cover:String //文件夹目录，存放版本
 });
 
 var Project = mongoose.model('projects', _Project);
@@ -12,16 +14,15 @@ var Project = mongoose.model('projects', _Project);
 exports.addNew = function (project, callback) {
 
     var project = new Project({
-        name : project.name,
-        dirName : project.dirName,
-        projectPath : project.fileName
+        uid:project.uid,
+        isShow:project.isShow,
+        pid:project.pid,
+        type : project.type,
+        cover:project.cover //文件夹目录，存放版本
     });
-    project.save(function (err) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null);
-        }
+
+    project.save(function (err,doc) {
+        callback(err,doc);
     });
 };
 
@@ -31,11 +32,32 @@ exports.findAll = function(callback){
 };
 
 
-var findProjectById = exports.findProjectById = function (id, callback) {
-    Project.findById(id, function (err, doc) {
+exports.findProjectByPid = function (pid, callback) {
+    Project.findById(pid, function (err, doc) {
         if (err) {
             callback(err, null);
         }
         callback(null, doc);
     });
 }
+
+
+exports.findProjectsByUid = function(uid,callback){
+    Project.find({uid:uid},callback);
+}
+
+
+exports.edit = function(uid,pid,filename,callback){
+
+    Project.update({pid:pid},{isShow:true,uid:uid,type:"folder",cover:filename},{upsert: true},function(err,numberAffected, raw){
+        if(err){
+           console.log("update project fail");
+
+        }else{
+            console.log(numberAffected);
+            console.log(raw);
+            callback(null,raw);
+        }
+
+    });
+};

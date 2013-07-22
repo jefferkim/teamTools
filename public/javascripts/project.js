@@ -1,4 +1,4 @@
-KISSY.add('project', function (S, RichBase, O) {
+KISSY.add('project', function (S, RichBase, O, QRCode) {
 
     var $ = S.all;
 
@@ -34,12 +34,15 @@ KISSY.add('project', function (S, RichBase, O) {
 
         events: {
             "click .delete-project": "deleteFile",
-            "click #J-delete-cancel": "cancelDelete"
+            "click #J-delete-cancel": "cancelDelete",
+            "click #J-delete-confirm": "deleteNow",
+            "click .J-viewQR": "viewQR",
+            "click #J-jump":"popLinkList",
+            "click .ks-overlay-mask-shown": "closePop"
         },
 
 
         deleteFile: function (e) {
-            e.preventDefault();
             e.preventDefault();
 
             this.deleteDialog = new O.Dialog({
@@ -55,9 +58,52 @@ KISSY.add('project', function (S, RichBase, O) {
             this.deleteDialog.show();
 
             var target = e.currentTarget;
-            var id = $(target).attr("data-id");
+            console.log($(target).parent("li"));
+
+            this.pid = $(target).parent("li").attr("data-id");
+
 
         },
+
+        deleteNow: function (e) {
+
+            e.preventDefault();
+
+            var self = this;
+            var id = this.pid;
+
+
+            S.IO({
+                url: '/file/remove',
+                type: "post",
+                data: {
+                    id: id
+                },
+                success: function (result) {
+
+                    if (result.suc) {
+                        self.deleteDialog.destroy();
+                        window.location.reload();
+
+                    } else {
+
+                    }
+                }
+            })
+
+
+        },
+
+
+
+
+
+
+        closePop: function (e) {
+            e.preventDefault();
+            this.QRDialog.destroy();
+        },
+
 
         cancelDelete: function (e) {
             e.preventDefault();
@@ -65,6 +111,38 @@ KISSY.add('project', function (S, RichBase, O) {
 
         },
 
+        viewQR: function (e) {
+            e.preventDefault();
+
+            var target = e.currentTarget;
+            var qrText = $(target).attr("data-url");
+            $("#qrcode").html("");
+
+
+            this.QRDialog = new O.Dialog({
+                width: 400,
+                headerContent: '',
+                bodyContent: '<div class="qr-pop"><div id="J-qrcode"></div><div class="tips">扫描二维码，在手机上浏览</div></div>',
+                mask: true,
+                align: {
+                    points: ['cc', 'cc']
+                }
+            });
+
+            this.QRDialog.show();
+
+
+            var qrcode = new QRCode("J-qrcode", {
+                text: window.location + qrText,
+                width: 304,
+                height: 304,
+                colorDark: "#000000",
+                colorLight: "#ffffff"
+            });
+
+            this.pid = $(target).parent("li").attr("data-id");
+
+        },
 
         destructor: function () {
             var self = this;
@@ -104,7 +182,7 @@ KISSY.add('project', function (S, RichBase, O) {
 
     return Project;
 
-}, {requires: [ "rich-base", 'overlay'] });
+}, {requires: [ "rich-base", 'overlay', 'gallery/qrcode/1.0/'] });
 
 
 

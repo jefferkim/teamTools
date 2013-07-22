@@ -47,13 +47,6 @@ db.once('open', function callback () {
 var app = express();
 
 
-app.locals({
-    getDate  : function(date) {
-        var d=new Date(date);
-
-        return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
-    }
-});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -99,6 +92,8 @@ app.post('/project/querySidebar',project.showSidebar);
 
 
 
+app.get('/dirInfo/:did',dirs.info);
+
 
 
 
@@ -114,6 +109,8 @@ app.post('/login/validation',login.validation);
 
 
 
+app.post('/dir/edit',version.uploadCover);
+
 
 
 
@@ -128,6 +125,10 @@ app.get('/file/:fid',dirs.list);
 
 app.post('/file/delete',dirs.delete);
 
+
+app.post('/file/addDir',dirs.addDir);
+
+app.post('/file/remove',dirs.removeFolder);
 
 //我的目录
 app.get('/my',my.myList);
@@ -157,6 +158,16 @@ app.get('/version/mobile/:vid',version.mobile);//手机端显示
 //admin
 app.get('/admin/projectadd',admin.addProject); //项目只有管理员才能添加
 app.post('/admin/projectNew',admin.projectNew); //form post
+
+
+
+app.locals({
+    getDate  : function(date) {
+        var d=new Date(date);
+
+        return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    }
+});
 
 
 
