@@ -16,12 +16,11 @@
 
 <div class="effect">
     <ul class="effect-list">
-        <li>渐隐</li>
-        <li>向左</li>
-        <li>向右</li>
+        <li class="fade">渐隐</li>
+        <li class="s-l">向左</li>
+        <li class="s-r">向右</li>
     </ul>
 </div>
-
 
 
 <ul class="prototype-list clearfix">
@@ -29,15 +28,12 @@
     <%if(files){%>
     <% files.forEach( function ( file ){ %>
     <li class="file" data-id="<%= file.id%>">
-       <div class="pic-page-context" id="J-page<%= file.id%>">
-        <a href="#">
-            <img src="http://yunpan.alibaba-inc.com/GetPhotoTag.do?fileId=<%= file.id%>&showBig=true"/>
-        </a>
-
-       </div>
-
+        <div class="pic-page-context" id="J-page<%= file.id%>">
+            <a href="/page/<%=file.id%>">
+                <img src="http://yunpan.alibaba-inc.com/GetPhotoTag.do?fileId=<%= file.id%>&showBig=true"/>
+            </a>
+        </div>
         <span class="name"><%= file.fileName%></span>
-
     </li>
 
     <%})%>
@@ -60,16 +56,25 @@
 
 
 <style>
-    .prototype-list li a img{
-        width:220px;
+
+    .prototype-list li a img {
+        width: 220px;
+    }
+
+    .ui-resizable-handle {
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 20px;
+        height: 20px;
+        background: #fff url('http://img03.taobaocdn.com/tps/i3/T17sJSFlFeXXb5WxPr-7-7.png') no-repeat scroll 0 0;
+        background-size: contain;
+
+    }
+
+    .compont {
+        position: absolute;
+        width: 100px;
+        height: 100px;
     }
 </style>
-<script src="/javascripts/prototype1.js"></script>
-
-<script>
-
-    KISSY.use("prototype",function(S,Prototype){
-        new Prototype();
-    })
-
-</script>

@@ -16,6 +16,8 @@ var admin = require('./routes/admin');
 
 var login = require('./routes/login');
 
+var page = require('./routes/page');
+
 
 var prototype = require('./routes/prototype');
 
@@ -88,6 +90,8 @@ app.get('/', project.showAll);
 app.get('/project/:pid',project.show);
 app.get('/project/edit',project.edit);
 app.post('/project/querySidebar',project.showSidebar);
+
+app.get('/page/:fid',page.showFile);
 
 
 
